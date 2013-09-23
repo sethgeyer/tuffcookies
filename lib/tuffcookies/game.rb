@@ -18,6 +18,7 @@ module TuffCookie
     
     def guess(guess_g)
       guess = guess_g
+      @outputz.puts "The flipped card is a #{@flipped_card}!"
       if @flipped_card > @current_card
         if guess == 'h'
           @outputz.puts "correct"  
