@@ -5,7 +5,6 @@ module TuffCookie
     end
       
     def start(current_card_g)
-    
       @current_card = current_card_g.to_i
       messages = ["Welcome to Tuff Cookies!", "err... I mean NGDubs!", "In any case, the Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
@@ -20,26 +19,42 @@ module TuffCookie
     def guess(guess_g)
       guess = guess_g
       @outputz.puts "The flipped card is a #{@flipped_card}!"
-      if @flipped_card > @current_card
-        if guess == 'h'
-          @outputz.puts "correct"  
-        elsif guess == 'l'
-          @outputz.puts "wrong"
+      mark = Mark.new(guess_g, @current_card, @flipped_card)
+      @outputz.puts mark.evaluate
+    end
+  end
+
+  class Mark
+    def initialize(guess, current_card, flipped_card)
+      @guess = guess
+      @flipped_card = flipped_card
+      @current_card = current_card
+    end
+    def evaluate
+    if @flipped_card > @current_card
+        if @guess == 'h'
+          answer = "correct"  
+        elsif @guess == 'l'
+          answer = "wrong"
         end   
       elsif @flipped_card < @current_card 
-        if guess == 'h'
-          @outputz.puts "wrong"
-        elsif guess == 'l'
-          @outputz.puts "correct"
+        if @guess == 'h'
+          answer = "wrong"
+        elsif @guess == 'l'
+          answer = "correct"
         end 
       elsif @flipped_card == @current_card 
-        @outputz.puts "same"
+        answer = "same"
       end
       @current_card = @flipped_card
-      @outputz.puts "Is the next card Higher(h) or Lower(l) than a #{@current_card}" 
+      return answer
+      
     end
-    
+  
+  
   end
+
+
 
 =begin 
   class Deck
@@ -52,9 +67,6 @@ module TuffCookie
     end
   end
 =end
-
-
-
 end
 
 

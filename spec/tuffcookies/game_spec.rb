@@ -26,7 +26,7 @@ module TuffCookie
       end
     end
   
-    describe "#Mark" do
+    describe "#Evaluate" do
       context "when current_card is 7, the next_card is 9 and guess is higher" do      
         it "should be 'correct'" do
           test_double_output.should_receive(:puts).with("correct")
@@ -43,6 +43,26 @@ module TuffCookie
           game.guess('l')    
         end
       end
+      context "when current_card is 7, the next_card is 7 and guess is lower" do      
+        it "should be 'same'" do
+          test_double_output.should_receive(:puts).with("same")
+          game.start('7')
+          game.flipped_card('7')
+          game.guess('l')    
+        end
+      end
+      
+      context "when current_card is 7, the next_card is 7 and guess is higher" do      
+        it "should be 'same'" do
+          test_double_output.should_receive(:puts).with("same")
+          game.start('7')
+          game.flipped_card('7')
+          game.guess('h')    
+        end
+      end
+    
+    
+    
     end
   
   end
