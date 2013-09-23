@@ -1,0 +1,2 @@
+
+require 'tuffcookies/game'
