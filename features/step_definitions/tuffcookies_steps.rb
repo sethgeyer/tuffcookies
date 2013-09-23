@@ -46,10 +46,23 @@ Then(/^the mark should be "(.*?)"$/) do |answer|
   output.messages.should include(answer)
 end
 
-#________________________
+#________TALLY CORRECT GUESSES
 
+Given(/^a game has started$/) do
+end
 
+When(/^the number of previous correct guesses is "(.*?)"$/) do |previous_correct_guesses|
+  @game = TuffCookie::Game.new(output)
+  @game.tally(previous_correct_guesses)
+end
 
+And(/^an answer is "(.*?)"$/) do |answer|
+  output.messages.include?(answer)
+end
+
+Then(/^the current correct guesses should be "(.*?)"$/) do |current_correct_guesses|
+  output.messages.should include(current_correct_guesses)
+end
 
 
 

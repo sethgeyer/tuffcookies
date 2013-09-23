@@ -22,6 +22,11 @@ module TuffCookie
       mark = Mark.new(guess_g, @current_card, @flipped_card)
       @outputz.puts mark.evaluate
     end
+  
+    def tally(tally)
+    end
+  
+  
   end
 
   class Mark
@@ -31,7 +36,7 @@ module TuffCookie
       @current_card = current_card
     end
     def evaluate
-    if @flipped_card > @current_card
+      if @flipped_card > @current_card
         if @guess == 'h'
           answer = "correct"  
         elsif @guess == 'l'
@@ -48,7 +53,7 @@ module TuffCookie
       end
       @current_card = @flipped_card
       return answer
-      
+    
     end
   
   

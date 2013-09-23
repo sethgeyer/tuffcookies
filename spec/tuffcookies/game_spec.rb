@@ -86,6 +86,14 @@ module TuffCookie
         end
       end
     end
+    
+    describe "#Tally" do
+      it "should be the number of correct answers"
+    end
+  
+  
+  
+  
   
   end
 end
@@ -127,72 +135,3 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-=begin
-module TuffCookie
-  describe Game do
-    let(:output) { double('output').as_null_object }
-      let(:game) { Game.new(output) }
-  
-    
-    describe "#start" do
-          
-      it "sends a welcome message" do
-         output.should_receive(:puts).with("Welcome to Tuff Cookies!")
-         game.start('7')
-      end
-      it "sends a second welcome message" do
-        output.should_receive(:puts).with("err... I mean NGDubs!")
-        game.start('7')
-      end
-      it "identifies the first card" do
-        output.should_receive(:puts).with("In any case, the Card in Play is a 7.")
-        game.start('7')
-      end
-      
-      it "sends requests a guess" do
-        output.should_receive(:puts).with("Higher (h) or Lower (l)?")
-        game.start('7')
-      end
-    end
-    
-    describe "#guess" do
-      context "next card is an 8 and player guesses higher" do
-        it "sends a correct message" do
-          game.start('7')
-          game.next_card('8')
-          game.guess('h')
-          output.should_receive(:puts).with("correct")
-          game.answer("correct")
-        end
-      end
-      context "next card is an 8 and player guesses lower" do
-        it "sends an incorrect message" do
-          game.start('7')
-          game.next_card("8")
-          game.guess('l')
-          output.should_receive(:puts).with("incorrect")
-          game.answer("incorrect")
-        end
-      end
-
-
-
-    end
-    
-    
-  end
-end
-
-=end
