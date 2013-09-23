@@ -3,8 +3,9 @@ module TuffCookie
     def initialize(output_g)
       @outputz = output_g
     end
-    
+      
     def start(current_card_g)
+    
       @current_card = current_card_g.to_i
       messages = ["Welcome to Tuff Cookies!", "err... I mean NGDubs!", "In any case, the Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
@@ -34,9 +35,26 @@ module TuffCookie
       elsif @flipped_card == @current_card 
         @outputz.puts "same"
       end
+      @current_card = @flipped_card
+      @outputz.puts "Is the next card Higher(h) or Lower(l) than a #{@current_card}" 
     end
     
   end
+
+=begin 
+  class Deck
+    def create_deck
+      numbered_cards = []
+      (1..15).each do |card| 
+        numbered_cards.push(card, card, card, card) # Add for copies of card to the deck.
+      end
+      @numbered_cards = numbered_cards
+    end
+  end
+=end
+
+
+
 end
 
 

@@ -3,7 +3,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'tuffcookies'
 
 game = TuffCookie::Game.new(STDOUT)
-game.start(rand(15))
+game.start(rand(1..15))
 flipped_card = game.flipped_card(rand(15))
 
 at_exit do
