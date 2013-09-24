@@ -27,7 +27,7 @@ module TuffCookie
       end
     end
 
-########### DESCRIBE EVALUATION OF GAME 
+########### DESCRIBE EVALUATION OF CARD 
     describe "#Evaluate" do
       context "when current_card is 7 and the next_card is 9" do
         context "and the guess was higher" do      

@@ -4,7 +4,7 @@ require 'tuffcookies'
 
 game = TuffCookie::Game.new(STDOUT)
 game.start(rand(1..15))
-flipped_card = game.flipped_card(rand(15))
+game.flipped_card(rand(1..15))
 
 at_exit do
   puts "The next card was a #{flipped_card}"

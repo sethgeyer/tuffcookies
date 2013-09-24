@@ -31,7 +31,8 @@ end
 
 Given(/^the current card is "(.*?)"$/) do |current_card|
   @game = TuffCookie::Game.new(output)
-  @game.start(current_card) 
+  @game.start(7)
+  @game.current_card(current_card) 
 end
 
 When(/^the flipped card is "(.*?)"$/) do |flipped_card|
@@ -45,6 +46,8 @@ end
 Then(/^the mark should be "(.*?)"$/) do |answer|
   output.messages.should include(answer)
 end
+
+
 
 #________TALLY CORRECT GUESSES
 
@@ -63,7 +66,6 @@ end
 Then(/^the current correct guesses should be "(.*?)"$/) do |current_correct_guesses|
   output.messages.should include(current_correct_guesses)
 end
-
 
 
 
