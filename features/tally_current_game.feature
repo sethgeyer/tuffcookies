@@ -8,16 +8,16 @@ current number of correct guesses in a row.
     Given a game has started
     When the number of previous correct guesses is "<previous correct guesses>" 
     And an answer is "<answer>"
-    Then the current correct guesses should be "<current correct guesses>"
+    Then the current correct guesses should be "<total>"
     
     Scenarios: no matches
-    | previous correct guesses | answer | current correct guesses | 
-    | 1                        | correct| 2                       |
-    | 0                        | correct| 1                       |
-    | 3                        | correct| 4                       |
-    | 0                        | wrong  | 0                       |
-    | 2                        | wrong  | 0                       |
-    | 3                        | same   | 3                       |
-    | 4                        | same   | 4                       |
+    | previous correct guesses | answer | total | 
+    | 1                        | correct| yep |
+    | 0                        | correct| yep |
+    | 3                        | correct| yep |
+    | 0                        | wrong  | yep |
+    | 2                        | wrong  | yep |
+    | 3                        | same   | yep |
+    | 4                        | same   | yep |
     
     

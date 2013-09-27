@@ -1,36 +1,34 @@
-def output
-  @output ||= Output.new
-end
-
-
 class Output
   def messages
     @messages ||= []
   end
   
-  def puts(message)
-    messages << message
+  def puts(message_passed_from_game_rb)
+    messages << message_passed_from_game_rb
   end
 end
 
+def output_item
+  @output ||= Output.new
+end
 
-#__________START A GAME
+#___________START GAME
 Given(/^I am not yet playing$/) do
 end
 
 When(/^I start a game$/) do
-  game = TuffCookie::Game.new(output)
-  game.start(7)
+game = TuffCookie::Game.new(output_item)
+game.start("7", "Seth")
 end
 
-Then(/^I should see "(.*?)"$/) do |message|
-  output.messages.should include(message)
+Then(/^I should see "(.*?)"$/) do |welcome_messages|
+output_item.messages.should include(welcome_messages)
 end
 
-#__________SUBMIT A MARK
+#__________SUBMIT A GUESS
 
 Given(/^the current card is "(.*?)"$/) do |current_card|
-  @game = TuffCookie::Game.new(output)
+  @game = TuffCookie::Game.new(output_item)
   @game.start(7)
   @game.current_card(current_card) 
 end
@@ -44,36 +42,41 @@ And(/^I guess "(.*?)"$/) do |guess|
 end
 
 Then(/^the mark should be "(.*?)"$/) do |answer|
-  output.messages.should include(answer)
+  output_item.messages.should include(answer)
 end
 
+
+
+=begin
 
 
 #________TALLY CORRECT GUESSES
 
 Given(/^a game has started$/) do
+ @game = TuffCookie::Game.new(output)
+ @game.start(7)
+ @game.guess('h')
+ @game.flipped_card(8)
+ @game.current_card(7)
 end
 
 When(/^the number of previous correct guesses is "(.*?)"$/) do |previous_correct_guesses|
-  @game = TuffCookie::Game.new(output)
+ 
   @game.tally(previous_correct_guesses)
 end
 
-And(/^an answer is "(.*?)"$/) do |answer|
-  output.messages.include?(answer)
+And(/^an answer is "(.*?)"$/) do |answer1|
+  output.messages.include?(answer1)
 end
 
-Then(/^the current correct guesses should be "(.*?)"$/) do |current_correct_guesses|
-  output.messages.should include(current_correct_guesses)
+Then(/^the current correct guesses should be "(.*?)"$/) do |total|
+  output.messages.should include(total)
 end
 
 
 
 
-
-
-
-
+=end
 
 
 
