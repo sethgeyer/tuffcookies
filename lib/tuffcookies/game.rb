@@ -1,5 +1,6 @@
 module TuffCookie
   class Game
+    attr_accessor :total_cards
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -15,18 +16,19 @@ module TuffCookie
       @current_card = start_card.to_i
       messages = ["What's up #{player_name}? You are playing against:", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
-        @outputz.puts message 
+        @outputz.puts message
       end
     end
   
+
     def create_deck
       numbered_cards = []
       (1..15).each do |card| 
         numbered_cards.push(card, card, card, card) # 4 for copies of card to the deck.
       end
-      @numbered_cards = numbered_cards
+      @total_cards = numbered_cards.length
     end
-    
+
     def current_card(current_card)
       @current_card = current_card.to_i
     end
