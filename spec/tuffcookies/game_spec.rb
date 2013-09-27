@@ -30,57 +30,57 @@ module TuffCookie
 ########### DESCRIBE EVALUATION OF CARD 
     describe "#Evaluate" do
       context "when current_card is 7 and the next_card is 9" do
+        before(:each) do 
+          game.start('7') 
+          game.flipped_card('9') 
+        end 
         context "and the guess was higher" do      
           it "should be 'correct'" do
             test_double.should_receive(:puts).with("correct")
-            game.start('7')
-            game.flipped_card('9')
             game.guess('h')
           end
         end
         context "and the guess was lower" do      
           it "should be 'wrong'" do
             test_double.should_receive(:puts).with("wrong")
-            game.start('7')
-            game.flipped_card('9')
             game.guess('l')
           end
         end
       end
 
       context "when current_card is 7, the next_card is 6" do
+        before(:each) do
+            game.start('7')
+            game.flipped_card('6')
+        end
         context "and the guess was higher" do      
           it "should be 'wrong'" do
             test_double.should_receive(:puts).with("wrong")
-            game.start('7')
-            game.flipped_card('6')
             game.guess('h')
           end
         end
         context "and the guess was lower" do      
           it "should be 'correct'" do
             test_double.should_receive(:puts).with("correct")
-            game.start('7')
-            game.flipped_card('6')
             game.guess('l')
           end
         end
       end
       
       context "when current_card is 7 and the next_card is 7" do
+        before(:each) do
+            game.start('7')
+            game.flipped_card('7')
+        end
         context "and the guess is higher" do      
           it "should be 'same'" do
             test_double.should_receive(:puts).with("same")
-            game.start('7')
-            game.flipped_card('7')
             game.guess('h')
           end
         end
         context "and the guess was lower" do      
           it "should be 'same'" do
             test_double.should_receive(:puts).with("same")
-            game.start('7')
-            game.flipped_card('7')
             game.guess('l')
           end
         end
@@ -88,18 +88,6 @@ module TuffCookie
     end
   end
 end
-
-=begin  
-    describe "#Tally" do
-      it "should be the number of correct answers"
-    end
-  
-  
-  
-  
-  
-=end
-
 
 
 
