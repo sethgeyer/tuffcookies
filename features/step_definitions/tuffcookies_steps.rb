@@ -18,7 +18,7 @@ end
 
 When(/^I start a game$/) do
 game = TuffCookie::Game.new(output_item)
-game.start("7", "Seth")
+game.start(7, "Seth")
 end
 
 Then(/^I should see "(.*?)"$/) do |welcome_messages|
@@ -30,7 +30,7 @@ end
 Given(/^the current card is "(.*?)"$/) do |current_card|
   @game = TuffCookie::Game.new(output_item)
   @game.start(7)
-  @game.current_card(current_card) 
+  @game.current_card == current_card 
 end
 
 When(/^the flipped card is "(.*?)"$/) do |flipped_card|

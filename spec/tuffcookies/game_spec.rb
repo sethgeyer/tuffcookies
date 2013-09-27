@@ -10,19 +10,19 @@ module TuffCookie
     describe "#Start" do
       it "asks a user for his/her name" do
         test_double.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
-        game.start("7")
+        game.start(7)
       end
       it "welcomes the person" do
         test_double.should_receive(:puts).with("What's up Seth? You are playing against:")
-        game.start("7", "Seth")
+        game.start(7, "Seth")
       end      
       it "identifies the first card" do
          test_double.should_receive(:puts).with("The Card in Play is a 7.")
-        game.start("7")
+        game.start(7)
       end
       it "asks user to guess" do
         test_double.should_receive(:puts).with("Higher (h) or Lower (l)?")
-        game.start("7")
+        game.start(7)
       end
     end
   
@@ -30,7 +30,7 @@ module TuffCookie
 ########### DESCRIBE CREATION OF DECK
     describe "#New Deck" do   
       it "has 60 new numbered cards" do
-        game.start('7')
+        game.start(7)
         game.total_cards.should == 60
       end 
     end
@@ -50,8 +50,8 @@ module TuffCookie
     describe "#Evaluate Players Guess" do
       context "when current_card is 7 and the next_card is 8" do
         before(:each) do 
-          game.start('7') 
-          game.dealer_flips_card('8') 
+          game.start(7) 
+          game.dealer_flips_card(8) 
         end 
         context "and the guess was higher" do      
           it "should be 'correct'" do
@@ -69,8 +69,8 @@ module TuffCookie
 
       context "when current_card is 7, the next_card is 6" do
         before(:each) do
-            game.start('7')
-            game.dealer_flips_card('6')
+            game.start(7)
+            game.dealer_flips_card(6)
         end
         context "and the guess was higher" do      
           it "should be 'wrong'" do
@@ -88,8 +88,8 @@ module TuffCookie
       
       context "when current_card is 7 and the next_card is 7" do
         before(:each) do
-            game.start('7')
-            game.dealer_flips_card('7')
+            game.start(7)
+            game.dealer_flips_card(7)
         end
         context "and the guess is higher" do      
           it "should be 'same'" do
