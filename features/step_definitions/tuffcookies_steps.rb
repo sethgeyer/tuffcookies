@@ -34,7 +34,7 @@ Given(/^the current card is "(.*?)"$/) do |current_card|
 end
 
 When(/^the flipped card is "(.*?)"$/) do |flipped_card|
-  @game.flipped_card(flipped_card)
+  @game.dealer_flips_card(flipped_card)
 end
 
 And(/^I guess "(.*?)"$/) do |guess|

@@ -7,7 +7,7 @@ game = TuffCookie::Game.new(STDOUT)
 player_name = gets.chomp
 
 game.start(rand(1..15), player_name)
-game.flipped_card(rand(1..15))
+game.dealer_flips_card
 
 #at_exit do
 #  puts "The next card was a #{flipped_card}"

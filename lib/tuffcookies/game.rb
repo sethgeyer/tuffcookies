@@ -31,8 +31,12 @@ module TuffCookie
       @current_card = current_card.to_i
     end
     
-    def flipped_card(flipped_card)
-      @flipped_card = flipped_card.to_i
+    def dealer_flips_card(next_card_in_deck = nil)
+      @flipped_card = next_card_in_deck.to_i
+    end
+    
+    def next_card_in_deck
+      rand(1..15)
     end
     
     def guess(guess)
@@ -41,7 +45,7 @@ module TuffCookie
       @outputz.puts "The flipped card is a #{@flipped_card}!"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
-      flipped_card(rand(1..15))
+      dealer_flips_card(next_card_in_deck)
     end
   
   end  

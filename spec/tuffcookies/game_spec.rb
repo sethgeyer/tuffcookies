@@ -32,7 +32,7 @@ module TuffCookie
       context "when current_card is 7 and the next_card is 9" do
         before(:each) do 
           game.start('7') 
-          game.flipped_card('9') 
+          game.dealer_flips_card('9') 
         end 
         context "and the guess was higher" do      
           it "should be 'correct'" do
@@ -51,7 +51,7 @@ module TuffCookie
       context "when current_card is 7, the next_card is 6" do
         before(:each) do
             game.start('7')
-            game.flipped_card('6')
+            game.dealer_flips_card('6')
         end
         context "and the guess was higher" do      
           it "should be 'wrong'" do
@@ -70,7 +70,7 @@ module TuffCookie
       context "when current_card is 7 and the next_card is 7" do
         before(:each) do
             game.start('7')
-            game.flipped_card('7')
+            game.dealer_flips_card('7')
         end
         context "and the guess is higher" do      
           it "should be 'same'" do
