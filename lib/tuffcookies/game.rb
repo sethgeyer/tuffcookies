@@ -14,7 +14,7 @@ module TuffCookie
     def start(start_card, player_name = nil) 
       player = Player.new(player_name)
       create_deck
-      @current_card = start_card
+      @current_card = start_card.to_i
       messages = ["What's up #{player_name}? You are playing against:", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
@@ -24,7 +24,7 @@ module TuffCookie
 # CREATES THE DECK for the Game
     def create_deck
       numbered_cards = []
-      (1..5).each do |card| 
+      (1..15).each do |card| 
         numbered_cards.push(card, card, card, card) # 4 for copies of card to the deck.
       end
       @total_cards = numbered_cards.length
@@ -34,7 +34,7 @@ module TuffCookie
   
 # DEALER FLIPS the next card.... calls the "next_card_in_deck" function  
     def dealer_flips_card(next_card_in_deck)
-      @flipped_card = next_card_in_deck
+      @flipped_card = next_card_in_deck.to_i
     end
 
 # NEXT CARD IN DECK is randomly pulled from the deck of cards and fed to the dealer.    

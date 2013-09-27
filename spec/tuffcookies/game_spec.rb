@@ -6,7 +6,7 @@ module TuffCookie
     let(:test_double)  {double("testdouble").as_null_object }
     let(:game) {Game.new(test_double) }
 
-############ DESCRIBE START OF GAME
+############ START OF GAME
     describe "#Start" do
       it "asks a user for his/her name" do
         test_double.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
@@ -26,27 +26,15 @@ module TuffCookie
       end
     end
   
-
-########### DESCRIBE CREATION OF DECK
+########### CREATION OF DECK
     describe "#New Deck" do   
       it "has 60 new numbered cards" do
         game.start(7)
         game.total_cards.should == 60
       end 
     end
-    
-########### DESCRIBE DEALER PICKS NEXT CARD IN DECK
-    # describe "#Dealer draws the next card" do   #I'm not sure how to test randomness
-#       it "is a random card" do
-#         game.start('7')
-#         test_values = [6,7,8]
-#         @next_card = Kernel.stub(:rand).and_return( *test_values)
-#       end 
-#     end
-  
 
-
-########### DESCRIBE EVALUATION OF CARD 
+########### EVALUATION OF CARD 
     describe "#Evaluate Players Guess" do
       context "when current_card is 7 and the next_card is 8" do
         before(:each) do 
