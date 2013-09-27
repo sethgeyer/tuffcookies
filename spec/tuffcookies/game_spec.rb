@@ -27,12 +27,31 @@ module TuffCookie
     end
   
 
+########### DESCRIBE CREATION OF DECK
+    describe "#New Deck" do   
+      it "has 60 new numbered cards" do
+        game.start('7')
+        game.total_cards.should == 60
+      end 
+    end
+    
+########### DESCRIBE DEALER PICKS NEXT CARD IN DECK
+    # describe "#Dealer draws the next card" do   #I'm not sure how to test randomness
+#       it "is a random card" do
+#         game.start('7')
+#         test_values = [6,7,8]
+#         @next_card = Kernel.stub(:rand).and_return( *test_values)
+#       end 
+#     end
+  
+
+
 ########### DESCRIBE EVALUATION OF CARD 
     describe "#Evaluate Players Guess" do
-      context "when current_card is 7 and the next_card is 9" do
+      context "when current_card is 7 and the next_card is 8" do
         before(:each) do 
           game.start('7') 
-          game.dealer_flips_card('9') 
+          game.dealer_flips_card('8') 
         end 
         context "and the guess was higher" do      
           it "should be 'correct'" do
@@ -87,22 +106,7 @@ module TuffCookie
       end
     end
   
-########### DESCRIBE CREATION OF DECK
-    describe "#New Deck" do   
-      it "has 60 new numbered cards" do
-        game.start('7')
-        game.total_cards.should == 60
-      end 
-    end
-    
-########### DESCRIBE DEALER PICKS NEXT CARD IN DECK
-    describe "#Dealer Selects a New Card" do   
-      it "has 60 new numbered cards" do
-        game.start('7')
-        game.total_cards.should == 60
-      end 
-    end
-    
+
   end
 end
 

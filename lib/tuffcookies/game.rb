@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards
+    attr_accessor :total_cards, :next_card_in_deck
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -27,18 +27,19 @@ module TuffCookie
         numbered_cards.push(card, card, card, card) # 4 for copies of card to the deck.
       end
       @total_cards = numbered_cards.length
+      @numbered_cards = numbered_cards
     end
 
     def current_card(current_card)
       @current_card = current_card.to_i
     end
     
-    def dealer_flips_card(next_card_in_deck = nil)
+    def dealer_flips_card(next_card_in_deck)
       @flipped_card = next_card_in_deck.to_i
     end
     
     def next_card_in_deck
-      rand(1..15)
+      card = @numbered_cards.delete_at(rand(@numbered_cards.length))
     end
     
     def guess(guess)
