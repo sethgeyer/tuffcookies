@@ -45,7 +45,7 @@ Then(/^the mark should be "(.*?)"$/) do |answer|
   output_item.messages.should include(answer)
 end
 
-=begin
+
 #________TALLY CORRECT GUESSES
 
 
@@ -68,7 +68,6 @@ end
 Then(/^the current correct guesses should be "(.*?)"$/) do |total|
   output_item.messages.should include(total)
 end
-=end
 
 
 

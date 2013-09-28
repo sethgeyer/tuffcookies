@@ -49,52 +49,28 @@ module TuffCookie
       @outputz.puts "The flipped card is a #{@flipped_card}!"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
+      #@outputz.puts tally.previous_correct_guesses
       dealer_flips_card(next_card_in_deck)
     end
   end  
 
-=begin
+
   class Tally  
     attr_accessor :previous_correct_guesses
     def initialize
       @previous_correct_guesses = 0
     end
-    def count
-      @previous_correct_guesses += 1
-    end
+    # def add_to_tally(answer)
+#       if answer = "correct"
+#       @previous_correct_guesses = @previous_correct_guesses + 1
+#       else
+#       @previous_correct_guesses = 0
+#     end
   end
-=end
   
   class Player
     def initialize(name)
       @score = 0
-    end
-  end
- 
-  
-  class Mark
-    def initialize(guess, current_card, flipped_card)
-      @guess = guess
-      @difference = flipped_card - current_card
-    end
-    def evaluate
-      if @difference > 0 # flipped card is greater than current card
-        answer = if @guess == 'h'
-          "correct"  
-        else
-          "wrong"
-        end   
-      elsif @difference < 0 #flipped card is less than the current card
-        answer = if @guess == 'h'
-          "wrong"
-        else
-          "correct"
-        end 
-      elsif @difference == 0 # flipped card is the same as current card
-        answer = "same"
-      end
-       
-      #return answer
     end
   end
 end
