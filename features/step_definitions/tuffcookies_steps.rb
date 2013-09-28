@@ -54,19 +54,19 @@ Given(/^a game has started$/) do
   @game.start(7, "Seth")
   @game.dealer_flips_card(8)
   @game.guess('h')
-  @tally = TuffCookie::Tally.new
+
 end
 
-When(/^the number of previous correct guesses is "(.*?)"$/) do |previous_correct_guesses|
-  @tally.previous_correct_guesses == previous_correct_guesses
+When(/^the number of previous correct guesses is "(.*?)"$/) do |tally|
+  @game.tally = tally.to_i
 end
 
 And(/^an answer is "(.*?)"$/) do |answer1|
   output_item.messages.include?(answer1)
 end
 
-Then(/^the current correct guesses should be "(.*?)"$/) do |total|
-  output_item.messages.should include(total)
+Then(/^the current correct guesses should be "(.*?)"$/) do |new_tally|
+  output_item.messages.should include(new_tally)
 end
 
 

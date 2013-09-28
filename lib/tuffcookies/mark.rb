@@ -20,13 +20,9 @@ module TuffCookie
       elsif @difference == 0 # flipped card is the same as current card
         answer = "same"
       end
-     # add_to_tally(answer)
-      #return answer
     end
   end
 end
-
-
 
 
 

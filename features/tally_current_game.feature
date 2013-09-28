@@ -6,18 +6,18 @@ current number of correct guesses in a row.
 
   Scenario Outline: track correct guesses
     Given a game has started
-    When the number of previous correct guesses is "<previous correct guesses>" 
+    When the number of previous correct guesses is "<tally>" 
     And an answer is "<answer>"
-    Then the current correct guesses should be "<total>"
+    Then the current correct guesses should be "<new_tally>"
     
     Scenarios: no matches
-    | previous correct guesses | answer | total | 
-    | 1                        | correct| 2     |
-    | 0                        | correct| 1     |
-    | 3                        | correct| 4     |
-    | 0                        | wrong  | 0     |
-    | 2                        | wrong  | 0     |
-    | 3                        | same   | 3     |
-    | 4                        | same   | 4     |
+    | tally | answer | new_tally | 
+    | 1     | correct| Consecutive correct guesses: 2         |
+    | 0     | correct| Consecutive correct guesses: 1         |
+    | 3     | correct| Consecutive correct guesses: 4         |
+    | 0     | wrong  | Consecutive correct guesses: 0         |
+    | 2     | wrong  | Consecutive correct guesses: 0         |
+    | 3     | same   | Consecutive correct guesses: 3         |
+    | 4     | same   | Consecutive correct guesses: 4         |
     
     

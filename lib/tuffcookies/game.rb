@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :tally
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -45,28 +45,26 @@ module TuffCookie
 # CURRENT PLAYER GUESSES the next card and relevant scoring data is fed to the MARK Class.  Feedback is sent back to the player.
     def guess(guess)
       mark = Mark.new(guess, @current_card, @flipped_card)
-      @outputz.puts mark.evaluate
+      evaluation = mark.evaluate
+#      add_to_tally(evaluation)
+      @outputz.puts evaluation
       @outputz.puts "The flipped card is a #{@flipped_card}!"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
-      #@outputz.puts tally.previous_correct_guesses
+      @outputz.puts "Consecutive correct guesses: #{@tally}"
       dealer_flips_card(next_card_in_deck)
     end
-  end  
-
-
-  class Tally  
-    attr_accessor :previous_correct_guesses
-    def initialize
-      @previous_correct_guesses = 0
-    end
-    # def add_to_tally(answer)
-#       if answer = "correct"
-#       @previous_correct_guesses = @previous_correct_guesses + 1
+  
+#     def add_to_tally(evaluation)
+#       @tally ||= 0
+#       if evaluation == "correct"
+#         @tally = @tally + 1
 #       else
-#       @previous_correct_guesses = 0
-#     end
+#         @tally = 0
+#       end       
+#     end  
   end
+
   
   class Player
     def initialize(name)
