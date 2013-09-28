@@ -45,40 +45,30 @@ Then(/^the mark should be "(.*?)"$/) do |answer|
   output_item.messages.should include(answer)
 end
 
-
-
 =begin
-
-
 #________TALLY CORRECT GUESSES
 
+
 Given(/^a game has started$/) do
- @game = TuffCookie::Game.new(output)
- @game.start(7)
- @game.guess('h')
- @game.flipped_card(8)
- @game.current_card(7)
+  @game = TuffCookie::Game.new(output_item)
+  @game.start(7, "Seth")
+  @game.dealer_flips_card(8)
+  @game.guess('h')
+  @tally = TuffCookie::Tally.new
 end
 
 When(/^the number of previous correct guesses is "(.*?)"$/) do |previous_correct_guesses|
- 
-  @game.tally(previous_correct_guesses)
+  @tally.previous_correct_guesses == previous_correct_guesses
 end
 
 And(/^an answer is "(.*?)"$/) do |answer1|
-  output.messages.include?(answer1)
+  output_item.messages.include?(answer1)
 end
 
 Then(/^the current correct guesses should be "(.*?)"$/) do |total|
-  output.messages.should include(total)
+  output_item.messages.should include(total)
 end
-
-
-
-
 =end
-
-
 
 
 
