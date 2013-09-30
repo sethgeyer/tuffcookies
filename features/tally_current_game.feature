@@ -5,10 +5,9 @@ correctly (or incorrectly), the game should keep track of the
 current number of correct guesses in a row.
 
   Scenario Outline: track correct guesses
-    Given a game has started
-    When the number of previous correct guesses is "<tally>" 
-    And an answer is "<answer>"
-    Then the current correct guesses should be "<new_tally>"
+    Given the current number of correct guesses is "<tally>"
+    When the answer is "<answer>" 
+    Then the correct guesses should be "<new_tally>"
     
     Scenarios: no matches
     | tally | answer | new_tally | 

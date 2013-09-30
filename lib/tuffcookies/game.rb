@@ -14,7 +14,7 @@ module TuffCookie
     def start(start_card, player_name = nil) 
       player = Player.new(player_name)
       create_deck
-      #@tally = Tally.new
+      #@tally ||= Tally.new
       @current_card = start_card.to_i
       messages = ["What's up #{player_name}? You are playing against:", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
@@ -53,7 +53,7 @@ module TuffCookie
       @outputz.puts "The flipped card is a #{@flipped_card}!"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
-      @outputz.puts "Consecutive correct guesses: #{tally.count}"
+      @outputz.puts "Consecutive correct guesses: #{score.count}"
       dealer_flips_card(next_card_in_deck)
     end
   
@@ -61,8 +61,11 @@ module TuffCookie
   end
 
 
- #  class Tally    
-#     attr_accessor :count
+   class Tally    
+     attr_accessor :count
+      def count
+      @count = 2
+      end
 #     def add_to_tally(evaluation)
 #       @count ||= 0
 #       if evaluation == "correct"
@@ -71,7 +74,7 @@ module TuffCookie
 #         @count = 0
 #       end       
 #     end  
-#   end
+   end
 
 
 
