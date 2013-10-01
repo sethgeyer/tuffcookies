@@ -14,7 +14,7 @@ module TuffCookie
     def start(start_card, player_name = nil) 
       player = Player.new(player_name)
       create_deck
-      #@tally ||= Tally.new
+      @tally ||= Correct_Guess_Tally.new
       @current_card = start_card.to_i
       messages = ["What's up #{player_name}? You are playing against:", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
@@ -44,16 +44,15 @@ module TuffCookie
     end
 
 # CURRENT PLAYER GUESSES the next card and relevant scoring data is fed to the MARK Class.  Feedback is sent back to the player.
-    def guess(guess)
+    def guess(guess, current_correct_guess_tally = nil)
       mark = Mark.new(guess, @current_card, @flipped_card)
       evaluation = mark.evaluate
-      
-      #@tally.add_to_tally(evaluation)
+      new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
       @outputz.puts "The flipped card is a #{@flipped_card}!"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
-      @outputz.puts "Consecutive correct guesses: #{score.count}"
+      @outputz.puts "Consecutive correct guesses: #{new_correct_guess_tally}"
       dealer_flips_card(next_card_in_deck)
     end
   
@@ -61,19 +60,16 @@ module TuffCookie
   end
 
 
-   class Tally    
-     attr_accessor :count
-      def count
-      @count = 2
-      end
-#     def add_to_tally(evaluation)
+   class Correct_Guess_Tally    
+     def add_to_tally(evaluation, current_correct_guess_tally)
+        current_correct_guess_tally
 #       @count ||= 0
 #       if evaluation == "correct"
 #         @count = @count + 1
 #       else
 #         @count = 0
 #       end       
-#     end  
+     end  
    end
 
 

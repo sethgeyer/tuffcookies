@@ -48,22 +48,22 @@ end
 
 #________TALLY CORRECT GUESSES
 
-
-Given(/^the current number of correct guesses is "(.*?)"$/) do |tally|
+Given(/^the flipped_card is "(.*?)"$/) do |flipped_card|
  @game = TuffCookie::Game.new(output_item)
- @tally = TuffCookie::Tally.new
  @game.start(7)
- @game.dealer_flips_card(8)
- @game.guess('h')
- @tally.count = tally
+ @game.dealer_flips_card(flipped_card)
 end
 
-When(/^the answer is "(.*?)"$/) do |answer1|
-  output_item.messages.should include(answer1)
+And(/^the current number of correct guesses is "(.*?)"$/) do |current_correct_guess_tally|
+ @game.guess('h', current_correct_guess_tally)
 end
 
-Then(/^the correct guesses should be "(.*?)"$/) do |new_tally|
-  output_item.messages.should include(new_tally)
+When(/^the answer of higher is "(.*?)"$/) do |answer|
+  output_item.messages.should include(answer)
+end
+
+Then(/^the correct guesses should be "(.*?)"$/) do |new_correct_guess_tally|
+  output_item.messages.should include(new_correct_guess_tally)
 end
 
 
