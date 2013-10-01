@@ -14,6 +14,8 @@ game.dealer_flips_card(game.next_card_in_deck)
 #end 
 
 
+
+
 while guess = gets.chomp
- game.guess(guess)
+ game.guess(guess, game.current_correct_guess_tally)
 end
