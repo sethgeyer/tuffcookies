@@ -94,14 +94,35 @@ module TuffCookie
       end
     end
   
-
+ 
+  
   end
+
+
+
+  describe Correct_Guess_Tally do
+    describe "#Tabulation of Correct Guesses" do
+      context "when the guess is 'correct' and the current_correct_guess_tally is '0'" do
+        it "the new_correct_guess_tally should be 1" do
+          tally = TuffCookie::Correct_Guess_Tally.new
+          tally.add_to_tally("correct", 0)
+#          tally.new_correct_guess_tally.should == 1
+          expect {tally.add_to_tally("correct", 0)}.to change{tally.new_correct_guess_tally}.by(1)
+          
+          # test_double = double("testdouble").as_null_object 
+#           game = Game.new(test_double)
+#           game.start(7) 
+#           #test_double.should_receive(:puts).with(1)
+#           game.dealer_flips_card(8)
+#           game.guess('h', 0)
+        
+        end
+      end
+    end
+  end
+
+
 end
-
-
-
-
-
 
 
 
