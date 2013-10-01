@@ -69,12 +69,33 @@ end
 
 #_________ SWEEP CARDS OR KEEP PLAYING
 
-Given(/^the player's current score is "(.*?)"$/) do |current_score|
-  #Player.current_score
+Given(/^the player is "(.*?)"$/) do |current_player|
+  @game = TuffCookie::Game.new(output_item)
+  @game.start(7)
+  @game.dealer_flips_card(5)
+  @current_player = TuffCookie::CurrentPlayer.new(current_player)
+end
+
+And(/^the player's current score is "(.*?)"$/) do |current_score|
+  @current_player.current_score = current_score
+end
+
+And(/^the current_correct_guess_tally is "(.*?)"$/) do |current_correct_tally|
+  @game.current_correct_guess_tally = current_correct_tally
 end
 
 
+When(/^my choice is "(.*?)"$/) do |guess|
+  @game.guess(guess, @game.current_correct_guess_tally)
+end
 
+And(/^my current_correct_guess_tally is greater than "(.*?)"$/) do |min|
+  @min = min
+end
+
+Then(/^the player's new_score should be "(.*?)"$/) do |new_score|
+  output_item.messages.should include(new_score)
+end
 
 
 

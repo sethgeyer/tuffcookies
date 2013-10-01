@@ -63,7 +63,7 @@ module TuffCookie
     attr_accessor :current_score, :name
     def initialize(name)
       @name = name
-      @current_score = 15
+      @current_score = 0
     end
   end
 
