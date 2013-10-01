@@ -54,7 +54,7 @@ module TuffCookie
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
       @outputz.puts "Consecutive correct guesses: #{new_correct_guess_tally}"
       dealer_flips_card(next_card_in_deck)
-      totally = "Yes"
+      
     end
   
      
@@ -63,16 +63,15 @@ module TuffCookie
 
   class Correct_Guess_Tally 
     attr_accessor :new_correct_guess_tally   
-     def add_to_tally(evaluation, current_correct_guess_tally)
-        new_correct_guess_tally = current_correct_guess_tally
-#       @count ||= 0
-#       if evaluation == "correct"
-#         @count = @count + 1
-#       else
-#         @count = 0
-#       end       
-     end  
-   end
+    def add_to_tally(evaluation, current_correct_guess_tally)
+      tally = current_correct_guess_tally.to_i || 0
+      if evaluation == "correct"
+        tally = tally + 1
+      else
+        tally = 0
+      end       
+    end  
+  end
 
 
 
