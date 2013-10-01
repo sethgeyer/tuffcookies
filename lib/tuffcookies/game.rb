@@ -13,11 +13,11 @@ module TuffCookie
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
       list = @players.unshift(Player.new(player_name).name).join(", ")
-      
       create_deck
       @tally ||= Correct_Guess_Tally.new
+      current_player = CurrentPlayer.new(player_name)
       @current_card = start_card.to_i
-      messages = ["What's up? The players are: #{list}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{list}", "Your current score is #{current_player.current_score}.", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
@@ -63,9 +63,20 @@ module TuffCookie
     attr_accessor :current_score, :name
     def initialize(name)
       @name = name
-      @current_score = 0
+      @current_score = 15
     end
   end
+
+  class CurrentPlayer < Player
+    attr_accessor :current_player, :current_score
+    def initialize(current_player)
+      super(current_score)      
+      @current_player = current_player
+    end
+  end
+
+
+
 end
 
 

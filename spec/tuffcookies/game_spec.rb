@@ -11,10 +11,13 @@ module TuffCookie
       it "asks a user for his/her name" do
         test_double.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
         game.start(7, "Seth")
+        CurrentPlayer.new("Seth")
       end
       it "welcomes the person" do
         @players = "Seth, George, Anne, Noah"
         test_double.should_receive(:puts).with("What's up? The players are: #{@players}")
+        test_double.should_receive(:puts).with("Your current score is 0.")
+
         game.start(7, "Seth")
        
       end      
