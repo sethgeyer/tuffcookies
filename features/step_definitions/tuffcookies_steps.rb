@@ -67,6 +67,36 @@ Then(/^the correct guesses should be "(.*?)"$/) do |new_correct_guess_tally|
 end
 
 
+#_________ SWEEP CARDS OR KEEP PLAYING
+
+Given(/^the player's current score is "(.*?)"$/) do |current_score|
+  #Player.current_score
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

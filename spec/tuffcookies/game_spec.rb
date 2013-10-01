@@ -10,11 +10,13 @@ module TuffCookie
     describe "#Start" do
       it "asks a user for his/her name" do
         test_double.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
-        game.start(7)
+        game.start(7, "Seth")
       end
       it "welcomes the person" do
-        test_double.should_receive(:puts).with("What's up Seth? You are playing against:")
+        @players = "Seth, George, Anne, Noah"
+        test_double.should_receive(:puts).with("What's up? The players are: #{@players}")
         game.start(7, "Seth")
+       
       end      
       it "identifies the first card" do
          test_double.should_receive(:puts).with("The Card in Play is a 7.")

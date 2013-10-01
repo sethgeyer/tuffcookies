@@ -5,18 +5,19 @@ module TuffCookie
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
       @players = []
-      @players << Player.new("George")
-      @players << Player.new("Anne")
-      @players << Player.new("Noah")
+      @players << Player.new("George").name
+      @players << Player.new("Anne").name
+      @players << Player.new("Noah").name
     end
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
-      player = Player.new(player_name)
+      list = @players.unshift(Player.new(player_name).name).join(", ")
+      
       create_deck
       @tally ||= Correct_Guess_Tally.new
       @current_card = start_card.to_i
-      messages = ["What's up #{player_name}? You are playing against:", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{list}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
@@ -59,8 +60,10 @@ module TuffCookie
   end
   
   class Player
+    attr_accessor :current_score, :name
     def initialize(name)
-      @score = 0
+      @name = name
+      @current_score = 0
     end
   end
 end

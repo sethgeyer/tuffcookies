@@ -1,3 +1,5 @@
+
+######## Keeps Tally of the number of correct guesses.  
 module TuffCookie
  class Correct_Guess_Tally 
     attr_accessor :new_correct_guess_tally   
