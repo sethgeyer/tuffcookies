@@ -16,7 +16,7 @@ module TuffCookie
       it "welcomes the person" do
         @players = "Seth, George, Anne, Noah"
         test_double.should_receive(:puts).with("What's up? The players are: #{@players}")
-        test_double.should_receive(:puts).with("Your current score is 0.")
+        test_double.should_receive(:puts).with("Current Score is: 0")
         game.start(7, "Seth")
        
       end      
@@ -43,21 +43,23 @@ module TuffCookie
       context "when the player's 'guess' is 'sweep'" do
         before(:each) do 
           game.start(7, "Seth") 
-          game.dealer_flips_card(8)
+          game.dealer_flips_card(8) 
+          game.current_player.current_score = 4
+             
         end
         context "and the 'current_correct_guess_tally' > or = 3" do
           it "should add points to the player's score" do
-            game.current_correct_guess_tally = 4
-            game.current_player.current_score.should == (game.current_player.current_score + game.current_correct_guess_tally)   
+            test_double.should_receive(:puts).with("Current Score: 9")
+            game.guess('s', 5)
           end    
         end
-      
-      #   context "and the 'current_correct_guess_tally' < 3" do
-#         
-#         end
-#       
-      end
-         
+        context "and the 'current_correct_guess_tally' < 3" do
+          it "should not add points to the player's score" do
+            test_double.should_receive(:puts).with("Current Score: 4")
+            game.guess('s', 2)
+          end
+        end
+      end 
       
       
       

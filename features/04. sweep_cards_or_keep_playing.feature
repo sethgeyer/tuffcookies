@@ -10,11 +10,11 @@ score.
     And the player's current score is "<current_score>" 
     And the current_correct_guess_tally is "<current_correct_guess_tally>" 
     When my choice is "<guess>"
-    And my current_correct_guess_tally is greater than "<min>"
     Then the player's new_score should be "<new_score>"
     
   Scenarios: Choosing to sweep cards
-| current_player| current_score | current_correct_guess_tally | guess | min | new_score               | 
-| Seth          | 1             | 5                           | s     | 3   | Your current score is 4.|
-| Seth          | 0             | 3                           | s     | 3   | Your current score is 3.|
-    
+| current_player| current_score | current_correct_guess_tally | guess | new_score               | 
+| Seth          | 1             | 5                           | s     | Current Score: 6        |
+| Seth          | 0             | 3                           | s     | Current Score: 3        |
+| Seth          | 4             | 2                           | s     | Current Score: 4        |
+| Seth          | 1             | 5                           | h     | Current Score: 1        |    

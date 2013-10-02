@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :min, :current_player
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :current_player
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -8,7 +8,6 @@ module TuffCookie
       @players << Player.new("George").name
       @players << Player.new("Anne").name
       @players << Player.new("Noah").name
-      @min = 3
     end
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
@@ -18,7 +17,7 @@ module TuffCookie
       @tally ||= Correct_Guess_Tally.new
       @current_player = CurrentPlayer.new(player_name)
       @current_card = start_card.to_i
-      messages = ["What's up? The players are: #{list}", "Your current score is #{@current_player.current_score}.", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{list}", "Current Score is: #{@current_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
@@ -50,12 +49,14 @@ module TuffCookie
     def guess(guess, current_correct_guess_tally = nil)
       mark = Mark.new(guess, @current_card, @flipped_card)
       evaluation = mark.evaluate
+      updated_score = @current_player.update_score(evaluation, current_correct_guess_tally)
       new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
-      @outputz.puts "The flipped card is a #{@flipped_card}!"
+      @outputz.puts "The flipped card is a #{@flipped_card}"
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
       @outputz.puts "Consecutive correct guesses: #{new_correct_guess_tally}"
+      @outputz.puts "Current Score: #{updated_score}"
       dealer_flips_card(next_card_in_deck)
       @current_correct_guess_tally = new_correct_guess_tally
     end  
@@ -74,7 +75,16 @@ module TuffCookie
     def initialize(current_player)
       super(current_score)      
       @current_player = current_player
+      @current_score = current_score
     end
+    def update_score(evaluation, current_correct_guess_tally)
+      if evaluation == "swept" && current_correct_guess_tally.to_i >= 3
+        @current_score = @current_score + current_correct_guess_tally.to_i
+      else
+        @current_score
+      end
+    end
+    
   end
 
 
