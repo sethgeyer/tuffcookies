@@ -102,13 +102,10 @@ Given(/^I am the "(.*?)"$/) do |current_player|
   @game = TuffCookie::Game.new(output_item)
   @game.start(7, current_player)
   @game.dealer_flips_card(5)
+  @game.guess('h')
 end
 
-When(/^my selection is "(.*?)"$/) do |guess|
-  @game.guess(guess)
-end
-
-And(/^the dealer's answer is "(.*?)"$/) do |answer|
+When(/^the dealer's answer is "(.*?)"$/) do |answer|
   @game.evaluation = answer
 end
 

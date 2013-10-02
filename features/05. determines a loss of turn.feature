@@ -8,16 +8,13 @@ So I that I know whether I should keep guessing
 
   Scenario Outline: 
     Given I am the "<current_player>"
-    When my selection is "<guess>"
-    And the dealer's answer is "<answer>"
+    When the dealer's answer is "<answer>"
     Then I should see that its "<next_player>"
     
     
   Scenarios: Determine the next player
-| current_player| guess | answer     | next_player |  
-| Seth          | h     | correct    | Seth's Turn |
-| Seth          | h     | wrong      | Bill's Turn |
-| Seth          | h     | same       | Bill's Turn |
-| Seth          | s     | correct    | Bill's Turn |
-| Seth          | s     | wrong      | Bill's Turn |
-| Seth          | s     | same       | Bill's Turn |
+| current_player| answer     | next_player |  
+| Seth          | correct    | Seth's Turn |
+| Seth          | wrong      | Bill's Turn |
+| Seth          | same       | Bill's Turn |
+| Seth          | swept      | Bill's Turn |
