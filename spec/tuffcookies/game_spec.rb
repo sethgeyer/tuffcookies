@@ -44,7 +44,7 @@ module TuffCookie
         before(:each) do 
           game.start(7, "Seth") 
           game.dealer_flips_card(8) 
-          game.current_player.current_score = 4
+          game.active_player.current_score = 4
              
         end
         context "and the 'current_correct_guess_tally' > or = 3" do
@@ -60,11 +60,6 @@ module TuffCookie
           end
         end
       end 
-      
-      
-      
-      
-      
       
       context "when current_card is 7 and the next_card is 8" do
         before(:each) do 
@@ -123,16 +118,7 @@ module TuffCookie
         end
       end
     end
-  
- 
-  
   end
-
-
-
- 
-
-
 end
 
 
