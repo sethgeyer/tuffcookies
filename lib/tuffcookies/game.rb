@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :min 
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :min, :current_player
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"

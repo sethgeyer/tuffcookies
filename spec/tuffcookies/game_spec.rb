@@ -11,7 +11,7 @@ module TuffCookie
       it "asks a user for his/her name" do
         test_double.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
         game.start(7, "Seth")
-        CurrentPlayer.new("Seth")
+        #@current_player = CurrentPlayer.new("Seth")
       end
       it "welcomes the person" do
         @players = "Seth, George, Anne, Noah"
@@ -40,6 +40,30 @@ module TuffCookie
 
 ########### EVALUATION OF CARD 
     describe "#Evaluate Players Guess" do
+      context "when the player's 'guess' is 'sweep'" do
+        before(:each) do 
+          game.start(7, "Seth") 
+          game.dealer_flips_card(8)
+        end
+        context "and the 'current_correct_guess_tally' > or = 3" do
+          it "should add points to the player's score" do
+            game.current_correct_guess_tally = 4
+            game.current_player.current_score.should == (game.current_player.current_score + game.current_correct_guess_tally)   
+          end    
+        end
+      
+      #   context "and the 'current_correct_guess_tally' < 3" do
+#         
+#         end
+#       
+      end
+         
+      
+      
+      
+      
+      
+      
       context "when current_card is 7 and the next_card is 8" do
         before(:each) do 
           game.start(7) 
