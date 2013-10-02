@@ -90,7 +90,7 @@ When(/^my choice is "(.*?)"$/) do |guess|
 end
 
 And(/^my current_correct_guess_tally is greater than "(.*?)"$/) do |min|
-  @min = min
+  @game.min = min
 end
 
 Then(/^the player's new_score should be "(.*?)"$/) do |new_score|
