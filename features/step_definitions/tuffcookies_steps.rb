@@ -97,16 +97,24 @@ Then(/^the player's new_score should be "(.*?)"$/) do |new_score|
 end
 
 
+#____________ Determine the next player
+Given(/^I am the "(.*?)"$/) do |current_player|
+  @game = TuffCookie::Game.new(output_item)
+  @game.start(7, current_player)
+  @game.dealer_flips_card(5)
+end
 
+When(/^my selection is "(.*?)"$/) do |guess|
+  @game.guess(guess)
+end
 
+And(/^the dealer's answer is "(.*?)"$/) do |answer|
+  @game.evaluation = answer
+end
 
-
-
-
-
-
-
-
+Then(/^I should see that its "(.*?)"$/) do |next_player|
+  output_item.messages.should include(next_player)
+end
 
 
 

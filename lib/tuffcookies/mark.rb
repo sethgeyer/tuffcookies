@@ -4,6 +4,7 @@ module TuffCookie
       @guess = guess
       @difference = flipped_card - current_card
     end
+    
     def evaluate
       if @guess == "s"
         "swept"    
@@ -25,6 +26,9 @@ module TuffCookie
         end
       end
     end
+  
+  
+  
   end
 end
 
