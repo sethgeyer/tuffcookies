@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :active_player, :evaluation
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :active_player, :evaluation, :players_turn
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -48,7 +48,7 @@ module TuffCookie
       mark = Mark.new(guess, @current_card, @flipped_card)
       evaluation = mark.evaluate
       updated_score = @active_player.update_score(evaluation, current_correct_guess_tally)
-      #players_turn = @active_player.assign_turn(evaluation)
+      @players_turn = @active_player.assign_turn(evaluation)
       new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
       @outputz.puts "The flipped card is a #{@flipped_card}"
@@ -58,7 +58,7 @@ module TuffCookie
       @outputz.puts "Current Score: #{updated_score}"
       dealer_flips_card(next_card_in_deck)
       @current_correct_guess_tally = new_correct_guess_tally
-      @outputz.puts "XXXXX's Turn"
+      @outputz.puts "#{@players_turn}'s Turn"
     end  
   end
 

@@ -101,13 +101,17 @@ end
 Given(/^I am the "(.*?)"$/) do |current_player|
   @game = TuffCookie::Game.new(output_item)
   @game.start(7, current_player)
-  @game.dealer_flips_card(5)
-  @game.guess('h')
+   
 end
 
-When(/^the dealer's answer is "(.*?)"$/) do |answer|
-  @game.evaluation = answer
+When(/^the flippedcard is "(.*?)"$/) do |flipped_card|
+  @game.dealer_flips_card(flipped_card)
 end
+
+And(/^the persons guess is "(.*?)"$/) do |guess|
+   @game.guess(guess, 5)
+end
+
 
 Then(/^I should see that its "(.*?)"$/) do |next_player|
   output_item.messages.should include(next_player)
