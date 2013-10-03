@@ -32,7 +32,7 @@ module TuffCookie
       if evaluation == "correct"
          @player_name
       elsif evaluation == "swept" || "wrong" || "same"
-        @player_name = CurrentPlayer.new("Bill").player_name   
+        @player_name = CurrentPlayer.new("George").player_name   
       end
     end
     

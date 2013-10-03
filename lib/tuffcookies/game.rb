@@ -10,16 +10,15 @@ module TuffCookie
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
-      list = @players.unshift(Player.new(player_name).name).join(", ")
+      list_of_players = @players.unshift(Player.new(player_name).name).join(", ")
       create_deck
       @tally = Correct_Guess_Tally.new
       @active_player = CurrentPlayer.new(player_name)
       @current_card = start_card.to_i
-      messages = ["What's up? The players are: #{list}", "Current Score is: #{@active_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{list_of_players}", "Current Score is: #{@active_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
-      
     end
   
 # CREATES THE DECK for the Game

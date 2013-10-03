@@ -8,14 +8,15 @@ So I that I know whether I should keep guessing
 
   Scenario Outline: 
     Given I am the "<current_player>"
+    And the players are "<list_of_players>"
     When the flippedcard is "<flipped_card>"
     And the persons guess is "<guess>" 
     Then I should see that its "<next_player>"
     
     
   Scenarios: Determine the next player
-| current_player | flipped_card | guess | next_player |  
-| Seth           | 9            | h     | Seth's Turn |
-| Seth           | 8            | s     | Bill's Turn |
-| Seth           | 6            | h     | Bill's Turn |
-| Seth           | 6            | h     | Bill's Turn |
+| current_player | list_of_players                  | flipped_card | guess | next_player |  
+| Seth           | Seth, George, Anne, Noah | 9            | h     | Seth's Turn |
+| Seth           | Seth, George, Anne, Noah | 8            | s     | George's Turn |
+| Seth           | Seth, George, Anne, Noah | 6            | h     | George's Turn |
+| Seth           | Seth, George, Anne, Noah | 6            | h     | George's Turn |

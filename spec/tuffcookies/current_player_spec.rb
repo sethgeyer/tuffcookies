@@ -19,19 +19,19 @@ module TuffCookie
       context "when the player's 'guess' is 'swept'" do
         it "should move to next player" do
           game.guess('s', 4)
-          game.players_turn.should == CurrentPlayer.new("Bill").player_name
+          game.players_turn.should == CurrentPlayer.new("George").player_name
         end       
       end    
       context "when the player's 'guess' is 'wrong'" do
         it "should move to next player" do
           game.guess('l', 4)
-          game.players_turn.should == CurrentPlayer.new("Bill").player_name
+          game.players_turn.should == CurrentPlayer.new("George").player_name
         end       
       end    
       context "when the player's 'guess' is 'same'" do
         it "should move to next player" do
           game.guess('l', 4)
-          game.players_turn.should == CurrentPlayer.new("Bill").player_name
+          game.players_turn.should == CurrentPlayer.new("George").player_name
         end       
       end    
 
