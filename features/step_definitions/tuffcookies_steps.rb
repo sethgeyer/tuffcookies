@@ -104,7 +104,6 @@ Given(/^I am the "(.*?)"$/) do |current_player|
 end
 
 And(/^the players are "(.*?)"$/) do |players|
-  
 end
 
 When(/^the flippedcard is "(.*?)"$/) do |flipped_card|

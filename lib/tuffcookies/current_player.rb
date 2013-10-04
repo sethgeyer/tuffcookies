@@ -15,8 +15,9 @@ module TuffCookie
 # CURRENT PLAYER is a subclass of Player and keeps tab of the individual's score as they play the game.
   class CurrentPlayer < Player
     attr_accessor :player_name #, :current_score
-    def initialize(current_player)
+    def initialize(current_player, list_of_players)
       super(current_score)      
+      @list_of_players = list_of_players
       @player_name = current_player
                       # @current_score = current_score
     end
@@ -32,10 +33,18 @@ module TuffCookie
       if evaluation == "correct"
          @player_name
       elsif evaluation == "swept" || "wrong" || "same"
-        @player_name = CurrentPlayer.new("George").player_name   
+        next_player   
       end
     end
-    
+
+    def next_player
+      if @list_of_players.size - 1 == @list_of_players.index(@player_name)
+        @list_of_players[0]
+      else
+        CurrentPlayer.new(@list_of_players[@list_of_players.index(@player_name).to_i + 1], @list_of_players).player_name
+      end
+    end
+
   end
 
 end
