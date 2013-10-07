@@ -52,7 +52,7 @@ module TuffCookie
         if @players_turn == @current_player.player_name
           # do nothing
         else
-          @current_player = CurrentPlayer.new(@list_of_players[@list_of_players.index("Seth").to_i + 1])
+          @current_player = CurrentPlayer.new(@list_of_players[@list_of_players.index(@current_player).to_i + 1])
         end
       new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
