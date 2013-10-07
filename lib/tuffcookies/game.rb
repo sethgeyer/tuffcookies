@@ -4,13 +4,15 @@ module TuffCookie
     def initialize(output)
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
-      @players = []
-      @players << Player.new("George").name << Player.new("Anne").name << Player.new("Noah").name
+      
     end
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
-      @list_of_players = @players.unshift(Player.new(player_name).name)
+      @players = []
+      @players << Player.new(player_name) << Player.new("George") << Player.new("Anne") << Player.new("Noah")
+      @list_of_players = []
+      @players.each { |player| @list_of_players << player.name }      
       create_deck
       @tally = Correct_Guess_Tally.new
       @current_player = CurrentPlayer.new(player_name, @list_of_players)
