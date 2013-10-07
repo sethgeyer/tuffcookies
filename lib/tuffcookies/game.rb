@@ -1,6 +1,6 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :active_player, :evaluation, :players_turn, :players
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :current_player, :evaluation, :players_turn, :players
     def initialize(output) 
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -13,9 +13,9 @@ module TuffCookie
       list_of_players = @players.unshift(Player.new(player_name).name)
       create_deck
       @tally = Correct_Guess_Tally.new
-      @active_player = CurrentPlayer.new(player_name, list_of_players)
+      @current_player = CurrentPlayer.new(player_name, list_of_players)
       @current_card = start_card.to_i
-      messages = ["What's up? The players are: #{list_of_players.join(", ")}", "Current Score is: #{@active_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{list_of_players.join(", ")}", "Current Score is: #{@current_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
@@ -47,8 +47,8 @@ module TuffCookie
       mark = Mark.new(guess, @current_card, @flipped_card)
       evaluation = mark.evaluate
      # @evaluation = evaluation
-      updated_score = @active_player.update_score(evaluation, current_correct_guess_tally)
-      @players_turn = @active_player.assign_turn(evaluation)
+      updated_score = @current_player.update_score(evaluation, current_correct_guess_tally)
+      @players_turn = @current_player.assign_turn(evaluation)
       new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
       @outputz.puts "The flipped card is a #{@flipped_card}"

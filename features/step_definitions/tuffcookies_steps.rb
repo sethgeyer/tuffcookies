@@ -78,7 +78,7 @@ Given(/^the player is "(.*?)"$/) do |current_player|
 end
 
 And(/^the player's current score is "(.*?)"$/) do |current_score|
-  @game.active_player.current_score = current_score.to_i
+  @game.current_player.current_score = current_score.to_i
   
 end
 
