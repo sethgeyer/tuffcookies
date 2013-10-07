@@ -1,7 +1,7 @@
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :current_player, :list_of_players, :players_turn#, :evaluation #, :players
-    def initialize(output) 
+    attr_accessor :total_cards, :next_card_in_deck, :current_card, :current_correct_guess_tally, :current_player, :list_of_players, :players_turn
+    def initialize(output)
       @outputz = output
       @outputz.puts "Welcome to Tuff Cookies!  What's your name?"
       @players = []
@@ -59,7 +59,7 @@ module TuffCookie
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
       @outputz.puts "Consecutive correct guesses: #{new_correct_guess_tally}"
-      @outputz.puts "Current Score: #{updated_score}"
+      #@outputz.puts "Current Score: #{updated_score}"
       dealer_flips_card(next_card_in_deck)
       @current_correct_guess_tally = new_correct_guess_tally
       @outputz.puts "#{@current_player.player_name}'s Turn"

@@ -17,25 +17,25 @@ module TuffCookie
             @next_player = game.list_of_players[game.list_of_players.index(@plug_name).to_i + 1]
           end
       end
-       context "when the current player's 'guess' is 'correct'" do
+       context "when the current player's 'guess' results in 'correct'" do
          it "should stay with the current player" do
            game.guess('h', 4)
            game.current_player.player_name.should == @plug_name
          end       
        end     
-      context "when the current player's 'guess' is 'swept'" do
+      context "when the current player's 'guess' results in 'swept'" do
         it "should move to next player" do
           game.guess('s', 4)
           game.current_player.player_name.should == @next_player
         end       
       end    
-      context "when the current player's 'guess' is 'wrong'" do
+      context "when the current player's 'guess' results in 'wrong'" do
         it "should move to next player" do
           game.guess('l', 4)
           game.current_player.player_name.should == @next_player
         end       
       end    
-      context "when the current player's 'guess' is 'same'" do
+      context "when the current player's 'guess' results in 'same'" do
         it "should move to next player" do
           game.guess('l', 4)
           game.current_player.player_name.should == @next_player
