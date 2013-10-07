@@ -38,11 +38,11 @@ module TuffCookie
     end
 
     def next_player
-     #  if @list_of_players.size - 1 == @list_of_players.index(@player_name)
-#         @list_of_players[0]
-#       else
+      if @list_of_players.size - 1 == @list_of_players.index(@player_name)
+        @list_of_players[0]
+      else
          @list_of_players[@list_of_players.index(@player_name).to_i + 1]
-#       end
+      end
     end
 
   end
