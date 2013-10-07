@@ -10,12 +10,12 @@ module TuffCookie
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
-      list_of_players = @players.unshift(Player.new(player_name).name)
+      @list_of_players = @players.unshift(Player.new(player_name).name)
       create_deck
       @tally = Correct_Guess_Tally.new
-      @current_player = CurrentPlayer.new(player_name, list_of_players)
+      @current_player = CurrentPlayer.new(player_name, @list_of_players)
       @current_card = start_card.to_i
-      messages = ["What's up? The players are: #{list_of_players.join(", ")}", "Current Score is: #{@current_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
+      messages = ["What's up? The players are: #{@list_of_players.join(", ")}", "Current Score is: #{@current_player.current_score}", "The Card in Play is a #{@current_card}.", "Higher (h) or Lower (l)?"]
       messages.each do |message|
         @outputz.puts message
       end
@@ -49,6 +49,11 @@ module TuffCookie
      # @evaluation = evaluation
       updated_score = @current_player.update_score(evaluation, current_correct_guess_tally)
       @players_turn = @current_player.assign_turn(evaluation)
+        if @players_turn == @current_player.player_name
+          # do nothing
+        else
+          @current_player = CurrentPlayer.new(@list_of_players[@list_of_players.index("Seth").to_i + 1])
+        end
       new_correct_guess_tally = @tally.add_to_tally(evaluation, current_correct_guess_tally)
       @outputz.puts evaluation
       @outputz.puts "The flipped card is a #{@flipped_card}"
@@ -58,7 +63,7 @@ module TuffCookie
       @outputz.puts "Current Score: #{updated_score}"
       dealer_flips_card(next_card_in_deck)
       @current_correct_guess_tally = new_correct_guess_tally
-      @outputz.puts "#{@players_turn}'s Turn"
+      @outputz.puts "#{@current_player.player_name}'s Turn"
     end  
   end
 
