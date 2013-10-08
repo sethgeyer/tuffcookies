@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'tuffcookies'
 
+=begin
 game = TuffCookie::Game.new(STDOUT)
 
 player_name = gets.chomp
@@ -19,3 +20,4 @@ game.dealer_flips_card(game.next_card_in_deck)
 while guess = gets.chomp
  game.guess(guess, game.current_correct_guess_tally)
 end
+=end
