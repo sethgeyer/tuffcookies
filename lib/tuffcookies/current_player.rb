@@ -1,6 +1,22 @@
 
 module TuffCookie
 
+# PLAYER CLASS - Establishes the player's name and sets their initial score to 0
+  class Player
+    attr_accessor :current_score, :name, :create_variable_name
+    def initialize(name)
+      @name = name
+      @current_score = 0
+    end
+    
+  end
+
+
+
+
+
+
+
 # CURRENT PLAYER is a subclass of Player and keeps tab of the individual's score as they play the game.
   class CurrentPlayer < Player
     attr_accessor :player_name #, :current_score
