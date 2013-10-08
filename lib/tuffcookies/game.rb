@@ -9,10 +9,11 @@ module TuffCookie
  
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
-      @players = []
-      @players << Player.new("A. #{player_name}") << Player.new("B. George") << Player.new("C. Anne") << Player.new("D. Noah")
-      @list_of_players = []
-      @players.each { |player| @list_of_players << player.name }      
+     # @players = []
+      @list_of_players = [player_name, "George", "Anne", "Noah"]
+#       @list_of_players.each do |player| 
+#         instance_variable_set("@#{player.to_s.downcase}", Player.new(player))
+#       end
       create_deck
       @tally = Correct_Guess_Tally.new
       @current_player = CurrentPlayer.new(player_name, @list_of_players)
@@ -48,7 +49,8 @@ module TuffCookie
     def guess(guess, current_correct_guess_tally = nil)
       mark = Mark.new(guess, @current_card, @flipped_card)
       evaluation = mark.evaluate
-      updated_score = @current_player.update_score(evaluation, current_correct_guess_tally)
+#       updated_score = @current_player.update_score(evaluation, current_correct_guess_tally)
+      
       @players_turn = @current_player.assign_turn(evaluation)
          if @players_turn == @current_player.player_name
            # do nothing
@@ -61,7 +63,7 @@ module TuffCookie
       @current_card = @flipped_card
       @outputz.puts "The current card is now #{@current_card}... Higher(h) or Lower(l)?"
       @outputz.puts "Consecutive correct guesses: #{new_correct_guess_tally}"
-      #@outputz.puts "Current Score: #{updated_score}"
+#       @outputz.puts "Current Score: #{updated_score}"
       dealer_flips_card(next_card_in_deck)
       @current_correct_guess_tally = new_correct_guess_tally
       @outputz.puts "#{@current_player.player_name}'s Turn"
