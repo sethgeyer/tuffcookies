@@ -14,7 +14,7 @@ module TuffCookie
         #@current_player = CurrentPlayer.new("Seth")
       end
       it "welcomes the person" do
-        @players = "Seth, George, Anne, Noah"
+        @players = "A. Seth, B. George, C. Anne, D. Noah"
         test_double.should_receive(:puts).with("What's up? The players are: #{@players}")
         test_double.should_receive(:puts).with("Current Score is: 0")
         game.start(7, "Seth")

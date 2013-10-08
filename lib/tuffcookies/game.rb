@@ -10,7 +10,7 @@ module TuffCookie
 # STARTS the game by welcoming the player, identifying the first card, and calling the "create deck" function.    
     def start(start_card, player_name = nil) 
       @players = []
-      @players << Player.new(player_name) << Player.new("George") << Player.new("Anne") << Player.new("Noah")
+      @players << Player.new("A. #{player_name}") << Player.new("B. George") << Player.new("C. Anne") << Player.new("D. Noah")
       @list_of_players = []
       @players.each { |player| @list_of_players << player.name }      
       create_deck
