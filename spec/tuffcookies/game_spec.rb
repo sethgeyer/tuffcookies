@@ -47,9 +47,13 @@ module TuffCookie
       end
 
       it "ASSIGNS TURN to the player" do
-        game.current_player.should == game.player0
+        
+        
+        game.current_player.should be_an_instance_of PlayerTurn
         output.should_receive(:puts).with("#{game.current_player.name.upcase}'s Turn: The Card in Play is a 7.... Higher(h) or Lower(l)?")  
         game.start(7, "Seth")
+        game.current_player.score.should == game.player0.score
+      
 
       end    
     
@@ -83,6 +87,8 @@ module TuffCookie
         # Need test
         # Need test
       end 
+      
+      
     
     
     

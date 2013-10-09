@@ -2,7 +2,7 @@
 
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :array_of_players, :player0, :player1, :player2, :player3, :current_player, :current_card, :tally, :mark, :numbered_cards, :flipped_card, :evaluation, :current_correct_guess_tally
+    attr_accessor :total_cards, :array_of_players, :player0, :player1, :player2, :player3, :current_card, :tally, :mark, :numbered_cards, :flipped_card, :evaluation, :current_correct_guess_tally, :current_player
     def initialize(output)
       @output = output
       @output.puts "Welcome to Tuff Cookies!  What's your name?"
@@ -14,7 +14,7 @@ module TuffCookie
     create_list_of_players(player_name)
     @tally = CorrectGuessTally.new
     @current_card = start_card
-    @current_player = @player0
+    @current_player = PlayerTurn.new(player_name, @player0.score)
     @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"
     end
     
@@ -39,7 +39,10 @@ module TuffCookie
       @flipped_card = dealer_flips_card
       @mark = Mark.new(guess, current_card, flipped_card)
       @evaluation = @mark.evaluate
-      
+#       @players_turn = @current_player.assign_turn(evaluation)
+#          if @players_turn != @current_player.name
+#           @current_player = PlayerTurn.new("Noah")
+#          end
       new_correct_guess_tally = @tally.add_to_tally(@evaluation, current_correct_guess_tally)
       @current_card = @flipped_card
       @output.puts "#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}" #Need Test
