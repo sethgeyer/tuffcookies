@@ -10,7 +10,7 @@ player_name = gets.chomp
 game.start(rand(1..15), player_name)
 
 while guess = gets.chomp
- game.guess(guess)
+ game.guess(guess, game.current_correct_guess_tally)
 end
 
 =begin

@@ -18,6 +18,10 @@ module TuffCookie
         game.total_cards.should == 60
       end
       
+      it "CREATES CORRECT GUESS TALLY instance " do
+        game.tally.should be_an_instance_of CorrectGuessTally     
+      end
+      
       it "CREATES LIST OF PLAYERS and an instance of each" do
         game.array_of_players.should == ["Seth", "Noah", "George", "Anne"] 
         game.player0.name.should == "Seth"
@@ -70,11 +74,18 @@ module TuffCookie
         game.current_card.should == game.flipped_card         
       end 
     
- #     it "tells the player the answer to their guess" do
- #       game.guess('h')
- #       output.should_receive(:puts).with("correct") 
- #       game.current_card = 10         
- #     end 
+      it "tells the player the answer to their guess and consecutive correct guesses" do
+        # Need test
+        # Need test
+      end 
+    
+      it "tells who the next player is and the current card in play" do
+        # Need test
+        # Need test
+      end 
+    
+    
+    
     end
 
   
