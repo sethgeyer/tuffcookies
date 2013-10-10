@@ -46,6 +46,7 @@ module TuffCookie
         game.current_card.should == 7
       end
 
+=begin
       it "ASSIGNS TURN to the player" do
         
         
@@ -56,7 +57,7 @@ module TuffCookie
       
 
       end    
-    
+=end    
     end
  
     describe "#GUESS" do
@@ -87,10 +88,6 @@ module TuffCookie
         # Need test
         # Need test
       end 
-      
-      
-    
-    
     
     end
 

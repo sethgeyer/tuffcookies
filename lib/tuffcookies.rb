@@ -2,4 +2,4 @@
 require 'tuffcookies/game'
 require 'tuffcookies/mark'
 require 'tuffcookies/correct_guess_tally'
-require 'tuffcookies/player_turn'
+require 'tuffcookies/player'

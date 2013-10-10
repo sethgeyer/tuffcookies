@@ -10,17 +10,8 @@ player_name = gets.chomp
 game.start(rand(1..15), player_name)
 
 while guess = gets.chomp
- game.guess(guess, game.current_correct_guess_tally)
+  game.guess(guess, game.current_correct_guess_tally)
 end
 
-=begin
-game.dealer_flips_card(game.next_card_in_deck)
-
-#at_exit do
-#  puts "The next card was a #{flipped_card}"
-#end 
-
-
-=end
 
 
