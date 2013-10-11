@@ -24,18 +24,13 @@ module TuffCookie
       
       it "CREATES LIST OF PLAYERS and an instance of each" do
         game.array_of_players.should == ["Seth", "Noah", "George", "Anne"] 
-        game.player0.name.should == "Seth"
-        game.player1.name.should == "Noah"
-        game.player2.name.should == "George"
-        game.player3.name.should == "Anne"
+        for i in (0..game.array_of_players.size - 1)
+          game.players[i].name.should == game.array_of_players[i]
+          game.players[i].score.should == 0
+          
+        end
       end
       
-      it "CREATES SCORE for each player" do
-        game.player0.score.should == 0
-        game.player1.score.should == 0
-        game.player2.score.should == 0
-        game.player3.score.should == 0
-      end
 
       it "GREETS the player and establishes the playing order" do
         output.should_receive(:puts).with("Welcome Seth! The starting playing order is: Seth, Noah, George, Anne")
