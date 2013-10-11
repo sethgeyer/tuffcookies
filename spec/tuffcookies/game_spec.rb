@@ -89,34 +89,72 @@ module TuffCookie
           end
         end
       end
-        context "the evaluation of the current players guess is 'wrong'" do
-          it "the next player is assigned" do
-            for i in (0..3)
-              game.current_player = game.players[i]
-              game.current_player = game.assign_next_turn("wrong")
-              if i == 3
-                game.current_player.name.should == game.players[0].name
-               else
-                game.current_player.name.should == game.players[i+1].name
-              end
+      context "the evaluation of the current players guess is 'wrong'" do
+        it "the next player is assigned" do
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("wrong")
+            if i == 3
+              game.current_player.name.should == game.players[0].name
+             else
+              game.current_player.name.should == game.players[i+1].name
             end
           end
         end
-        context "the evaluation of the current players guess is 'same'" do
-          it "the next player is assigned" do
-            for i in (0..3)
-              game.current_player = game.players[i]
-              game.current_player = game.assign_next_turn("same")
-              if i == 3
-                game.current_player.name.should == game.players[0].name
-              else
-                game.current_player.name.should == game.players[i+1].name
-              end
+      end
+      context "the evaluation of the current players guess is 'same'" do
+        it "the next player is assigned" do
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("same")
+            if i == 3
+              game.current_player.name.should == game.players[0].name
+            else
+               game.current_player.name.should == game.players[i+1].name
             end
           end
         end
-
+      end
+      context "the evaluation of the current players guess is 'swept'" do
+        it "the next player is assigned" do
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("swept")
+            if i == 3
+              game.current_player.name.should == game.players[0].name
+            else
+              game.current_player.name.should == game.players[i+1].name
+            end
+          end
+        end
+      end
     end  
+    describe "#UPDATE SCORE" do
+      before(:each) do
+        game.start(7, "Seth")
+       
+        game.flipped_card = 8
+      end
+      context "the evaluation of the current players guess is 'swept'" do
+        context "and the consecutive correct guesses >= 3" do
+          it "adds the consecutive guess cards to the current player's score" do
+            #game.current_player = game.players[0]
+            game.players[0].score = 5
+            game.current_correct_guess_tally = 3
+             game.guess('s')
+            
+            game.players[0].score.should == 8
+          end
+        end
+      end
+    
+    end
+  
+  
+  
+  
+  
+  
   
   end
 end
