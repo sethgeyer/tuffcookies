@@ -14,8 +14,8 @@ module TuffCookie
       create_list_of_players(player_name)
       @tally = CorrectGuessTally.new
       @current_card = start_card
-      @current_player = player_name
-      @output.puts "#{@current_player.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"
+      @current_player = @players[0]
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"
     end
     
     def create_deck
@@ -39,16 +39,33 @@ module TuffCookie
       @flipped_card = dealer_flips_card
       @mark = Mark.new(guess, current_card, flipped_card)
       @evaluation = @mark.evaluate
+      @current_player = assign_next_turn(@evaluation)
       new_correct_guess_tally = @tally.add_to_tally(@evaluation, current_correct_guess_tally)
       @current_card = @flipped_card
       @output.puts "#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}" #Need Test
-      @output.puts "#{@current_player.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"  #Need Test
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"  #Need Test
       @current_correct_guess_tally = new_correct_guess_tally 
     end   
         
-          def dealer_flips_card
-            @numbered_cards.shift
-          end    
+    def dealer_flips_card
+      @numbered_cards.shift
+    end
+    
+    def assign_next_turn(evaluation)
+      if evaluation == "correct"
+        @current_player
+      else
+        @players[next_turn]
+      end
+    end 
+    
+    def next_turn
+      if @players.size - 1 == @players.index(@current_player)
+        0
+      else
+        @players.index(@current_player) + 1
+      end
+    end   
 
   end
   

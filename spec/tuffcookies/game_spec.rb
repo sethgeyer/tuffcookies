@@ -41,18 +41,7 @@ module TuffCookie
         game.current_card.should == 7
       end
 
-=begin
-      it "ASSIGNS TURN to the player" do
-        
-        
-        game.current_player.should be_an_instance_of PlayerTurn
-        output.should_receive(:puts).with("#{game.current_player.name.upcase}'s Turn: The Card in Play is a 7.... Higher(h) or Lower(l)?")  
-        game.start(7, "Seth")
-        game.current_player.score.should == game.player0.score
-      
 
-      end    
-=end    
     end
  
     describe "#GUESS" do
@@ -69,6 +58,7 @@ module TuffCookie
         game.numbered_cards = [8, 2, 4, 5]
         game.dealer_flips_card.should == 8
       end
+            
       it "creates the new current card" do
         game.guess('h')
         game.current_card.should == game.flipped_card         
@@ -83,12 +73,71 @@ module TuffCookie
         # Need test
         # Need test
       end 
-    
     end
+    
+    describe "#ASSIGN NEXT TURN" do
+      before(:each) do
+        game.start(7, "Seth")
+        game.guess('h')
+      end
+      context "the evaluation of the current players guess is 'correct'" do
+        it "stays with the same player" do
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("correct")
+            game.current_player.name.should == game.players[i].name
+          end
+        end
+      end
+        context "the evaluation of the current players guess is 'wrong'" do
+          it "the next player is assigned" do
+            for i in (0..3)
+              game.current_player = game.players[i]
+              game.current_player = game.assign_next_turn("wrong")
+              if i == 3
+                game.current_player.name.should == game.players[0].name
+               else
+                game.current_player.name.should == game.players[i+1].name
+              end
+            end
+          end
+        end
+        context "the evaluation of the current players guess is 'same'" do
+          it "the next player is assigned" do
+            for i in (0..3)
+              game.current_player = game.players[i]
+              game.current_player = game.assign_next_turn("same")
+              if i == 3
+                game.current_player.name.should == game.players[0].name
+              else
+                game.current_player.name.should == game.players[i+1].name
+              end
+            end
+          end
+        end
 
-  
+    end  
   
   end
 end
          
       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
