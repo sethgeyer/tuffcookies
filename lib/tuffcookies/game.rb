@@ -45,6 +45,7 @@ module TuffCookie
       @current_card = @flipped_card
       @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}" #Need Test
       @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"  #Need Test
+      #You need to add a test for the score output below.
       @output.puts "Current_Scores:  #{@players[0].name} = #{@players[0].score} / #{@players[1].name} = #{@players[1].score}  #{@players[2].name} = #{@players[2].score}  #{@players[3].name} = #{@players[3].score} "
       @current_correct_guess_tally = new_correct_guess_tally 
     end   
@@ -55,12 +56,21 @@ module TuffCookie
     
     def update_score(evaluation)
       if evaluation == "swept" && @current_correct_guess_tally > 2
-         @current_player.score = @current_player.score + @current_correct_guess_tally.to_i
+        @current_player.score += @current_correct_guess_tally.to_i
+      elsif evaluation == "wrong"
+        @players[previous_player].score += @current_correct_guess_tally.to_i
       else
         # do nothing  
       end
     end
-    
+
+    def previous_player
+      if @players.index(@current_player) == 0
+        3
+      else
+        @players.index(@current_player) - 1
+      end
+    end
     
     def assign_next_turn(evaluation)
       if evaluation == "correct"

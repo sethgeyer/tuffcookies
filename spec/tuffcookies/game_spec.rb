@@ -147,6 +147,16 @@ module TuffCookie
           end
         end
       end
+      context "the evaluation of the current players guess is 'wrong'" do
+        it "adds the consecutive guess cards to the previous player's score" do
+          #game.current_player = game.players[0]
+          game.players[0].score = 5
+          game.players[3].score = 2
+          game.current_correct_guess_tally = 1
+          game.guess('l') 
+          game.players[3].score.should == 3
+        end
+      end
     
     end
   
