@@ -4,18 +4,18 @@ module TuffCookie
   class Game
     attr_accessor :total_cards, :array_of_players, :players, :current_card, :tally, :mark, :flipped_card, :evaluation, :current_correct_guess_tally, :current_player, :numbered_cards
     def initialize(output)
+      create_deck
       @output = output
       @output.puts "Welcome to Tuff Cookies!  What's your name?"
     end
  
     def start(start_card, player_name = nil)
       @output.puts "Welcome #{player_name}! The starting playing order is: #{player_name}, Noah, George, Anne"
-      create_deck
       create_list_of_players(player_name)
-      @tally = CorrectGuessTally.new
+      @tally = CorrectGuessTally.new(start_card)
       @current_card = start_card
       @current_player = @players[0]
-      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"
     end
     
     def create_deck
@@ -36,29 +36,44 @@ module TuffCookie
     end
     
     def guess(guess, current_correct_guess_tally = nil)
-      @flipped_card = dealer_flips_card
+      dealer_flips_card
       @mark = Mark.new(guess, current_card, flipped_card)
       @evaluation = @mark.evaluate
+      @tally.update_pot(@evaluation, @flipped_card)
       update_score(@evaluation)
       new_correct_guess_tally = @tally.add_to_tally(@evaluation, current_correct_guess_tally)
       @current_player = assign_next_turn(@evaluation)
+      decide_to_flip_another_card(@evaluation)
+      
+      
       @current_card = @flipped_card
-      @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}" #Need Test
-      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)?"  #Need Test
+      @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}" #Need Test
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"  #Need Test
       #You need to add a test for the score output below.
-      @output.puts "Current_Scores:  #{@players[0].name} = #{@players[0].score} / #{@players[1].name} = #{@players[1].score}  #{@players[2].name} = #{@players[2].score}  #{@players[3].name} = #{@players[3].score} "
+      @output.puts "Current_Scores:  \n#{@players[0].name} = #{@players[0].won_cards.size} #{@players[0].won_cards} \n#{@players[1].name} = #{@players[1].won_cards.size} #{@players[1].won_cards} \n#{@players[2].name} = #{@players[2].won_cards.size} #{@players[2].won_cards}  \n#{@players[3].name} = #{@players[3].won_cards.size} #{@players[3].won_cards} "
       @current_correct_guess_tally = new_correct_guess_tally 
     end   
         
     def dealer_flips_card
-      @numbered_cards.shift
+      @flipped_card = @numbered_cards.shift
     end
+
+    
+    def decide_to_flip_another_card(evaluation)
+      if evaluation == "wrong"
+        dealer_flips_card
+      end  
+    end
+
     
     def update_score(evaluation)
-      if evaluation == "swept" && @current_correct_guess_tally > 2
-        @current_player.score += @current_correct_guess_tally.to_i
+      if evaluation == "swept" #&& @current_correct_guess_tally > 2
+        @current_player.won_cards += @tally.pot
+        @tally.pot = [@flipped_card]
+  
       elsif evaluation == "wrong"
-        @players[previous_player].score += @current_correct_guess_tally.to_i #+ 1
+        @players[previous_player].won_cards += @tally.pot
+        @tally.pot = [@numbered_cards[0]]
       else
         # do nothing  
       end

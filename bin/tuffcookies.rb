@@ -7,7 +7,7 @@ game = TuffCookie::Game.new(STDOUT)
 
 player_name = gets.chomp
 
-game.start(rand(1..15), player_name)
+game.start(game.numbered_cards.shift, player_name)
 
 while guess = gets.chomp
 game.guess(guess, game.current_correct_guess_tally)

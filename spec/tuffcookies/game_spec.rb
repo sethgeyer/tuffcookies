@@ -22,11 +22,14 @@ module TuffCookie
         game.tally.should be_an_instance_of CorrectGuessTally     
       end
       
+      
+      
       it "CREATES LIST OF PLAYERS and an instance of each" do
         game.array_of_players.should == ["Seth", "Noah", "George", "Anne"] 
         for i in (0..game.array_of_players.size - 1)
           game.players[i].name.should == game.array_of_players[i]
-          game.players[i].score.should == 0
+          #game.players[i].score.should == 0
+          game.players[i].won_cards.should == []
           
         end
       end
@@ -54,11 +57,7 @@ module TuffCookie
         game.flipped_card = 8 
         game.mark.should be_an_instance_of Mark     
       end
-      it "identifies the next card the dealer will flip" do
-        game.numbered_cards = [8, 2, 4, 5]
-        game.dealer_flips_card.should == 8
-      end
-            
+
       it "creates the new current card" do
         game.guess('h')
         game.current_card.should == game.flipped_card         
@@ -75,11 +74,13 @@ module TuffCookie
       end 
     end
     
-    
-    
-    
-    
-    
+    describe "#DEALER FLIPS CARD" do
+      it "it draws the next card from the dealers deck" do
+        game.numbered_cards = [8, 2, 4, 5]
+        game.dealer_flips_card.should == 8
+      end
+    end 
+          
     describe "#ASSIGN NEXT TURN" do
       before(:each) do
         game.start(7, "Seth")
@@ -137,34 +138,55 @@ module TuffCookie
     describe "#UPDATE SCORE" do
       before(:each) do
         game.start(7, "Seth")
-        game.players[0].score = 0
-        game.players[1].score = 1
-        game.players[2].score = 2
-        game.players[3].score = 3
-        
+        game.players[0].won_cards = []
+        game.players[3].won_cards = [1,2,3]
+        game.numbered_cards = [7, 3, 2]
+        game.flipped_card = 12
+        game.tally.pot = [6,7,8]
       end
       context "the evaluation of the current players guess is 'swept'" do
+        before(:each) do
+          game.update_score("swept")
+        end        
         context "and the consecutive correct guesses >= 3" do
-          it "adds the consecutive guess cards to the current player's score" do
-            game.players[0].score = 5
-            game.current_correct_guess_tally = 3
-            game.update_score("swept")
-            game.players[0].score.should == 8
+          it "adds the pot to the current player's 'won cards" do
+            game.players[0].won_cards.size.should == 3
+          end
+          it "resets the pot to include the flipped card not yet played" do
+            game.tally.pot.should == [12]
           end
         end
       end
       context "the evaluation of the current players guess is 'wrong'" do
-        it "adds the consecutive guess cards to the previous player's score" do
-          game.players[0].score = 5
-          game.players[3].score = 2
-          game.current_correct_guess_tally = 1
+        before(:each) do
           game.update_score("wrong")
-          game.players[3].score.should == 3
+        end        
+        it "adds the pot to the current player's 'won cards" do
+          game.players[3].won_cards.size.should == 6
+        end
+        it "resets the pot to include first card in numbered_cards" do
+          game.tally.pot.should == [7]
         end
       end
-    
     end
-  
+  describe "#DECIDE TO FLIP ANOTHER CARD" do
+    before(:each) do
+      game.numbered_cards = [4,5,6]
+      game.flipped_card = 9
+    end
+    context "The evaluation of the current players guess is 'swept'" do
+      it "the dealer flips another card to begin a new round of guessing" do
+        game.decide_to_flip_another_card('swept')
+        game.flipped_card.should == 9
+      end
+    end
+    context "The evaluation of the current players guess is 'wrong'" do
+      it "the dealer flips another card to begin a new round of guessing" do
+        game.decide_to_flip_another_card('wrong')
+        game.flipped_card.should == 4
+      end
+    end
+  end
   
   
   
