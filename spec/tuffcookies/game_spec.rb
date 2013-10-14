@@ -75,6 +75,11 @@ module TuffCookie
       end 
     end
     
+    
+    
+    
+    
+    
     describe "#ASSIGN NEXT TURN" do
       before(:each) do
         game.start(7, "Seth")
@@ -132,27 +137,28 @@ module TuffCookie
     describe "#UPDATE SCORE" do
       before(:each) do
         game.start(7, "Seth")
-        game.flipped_card = 8
+        game.players[0].score = 0
+        game.players[1].score = 1
+        game.players[2].score = 2
+        game.players[3].score = 3
+        
       end
       context "the evaluation of the current players guess is 'swept'" do
         context "and the consecutive correct guesses >= 3" do
           it "adds the consecutive guess cards to the current player's score" do
-            #game.current_player = game.players[0]
             game.players[0].score = 5
             game.current_correct_guess_tally = 3
-             game.guess('s')
-            
+            game.update_score("swept")
             game.players[0].score.should == 8
           end
         end
       end
       context "the evaluation of the current players guess is 'wrong'" do
         it "adds the consecutive guess cards to the previous player's score" do
-          #game.current_player = game.players[0]
           game.players[0].score = 5
           game.players[3].score = 2
           game.current_correct_guess_tally = 1
-          game.guess('l') 
+          game.update_score("wrong")
           game.players[3].score.should == 3
         end
       end
