@@ -67,7 +67,7 @@ module TuffCookie
 
     
     def update_score(evaluation)
-      if evaluation == "swept" #&& @current_correct_guess_tally > 2
+      if evaluation == "swept" && @current_correct_guess_tally > 2
         @current_player.won_cards += @tally.pot
         @tally.pot = [@flipped_card]
   

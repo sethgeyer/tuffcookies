@@ -146,10 +146,12 @@ module TuffCookie
       end
       context "the evaluation of the current players guess is 'swept'" do
         before(:each) do
+          game.current_correct_guess_tally = 3
           game.update_score("swept")
         end        
         context "and the consecutive correct guesses >= 3" do
           it "adds the pot to the current player's 'won cards" do
+            
             game.players[0].won_cards.size.should == 3
           end
           it "resets the pot to include the flipped card not yet played" do
