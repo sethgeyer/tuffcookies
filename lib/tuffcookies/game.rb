@@ -58,7 +58,7 @@ module TuffCookie
       if evaluation == "swept" && @current_correct_guess_tally > 2
         @current_player.score += @current_correct_guess_tally.to_i
       elsif evaluation == "wrong"
-        @players[previous_player].score += @current_correct_guess_tally.to_i
+        @players[previous_player].score += @current_correct_guess_tally.to_i #+ 1
       else
         # do nothing  
       end

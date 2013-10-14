@@ -9,6 +9,13 @@ player_name = gets.chomp
 
 game.start(rand(1..15), player_name)
 
+while guess = gets.chomp
+game.guess(guess, game.current_correct_guess_tally)
+end
+
+=begin
+
+##### the below referenced code needs to be tested.
 while true 
   if game.current_player.name == player_name
     print "---------------------------------------------"
@@ -34,5 +41,7 @@ while true
     end
   end
 end
+
+=end
 
 

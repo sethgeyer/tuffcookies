@@ -132,7 +132,6 @@ module TuffCookie
     describe "#UPDATE SCORE" do
       before(:each) do
         game.start(7, "Seth")
-       
         game.flipped_card = 8
       end
       context "the evaluation of the current players guess is 'swept'" do
