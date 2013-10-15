@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module TuffCookie
   describe Mark do
-    describe "#New Mark" do
-      it "initializes with 'guess' and 'current_card' and 'flipped_card'" do
+    describe "#NEW MARK" do
+      it "Initializes with 'guess' and 'current_card' and 'flipped_card'" do
         mark = Mark.new('h', 7, 8)
         mark.guess.should == 'h'
         mark.current_card.should == 7
@@ -11,62 +11,69 @@ module TuffCookie
       end
     end
    
-    describe "#Evaluate Players Guess" do
-      context "the player chooses to take his cards" do
-        context "and the guess was 's'" do      
-          it "answer should be 'sweep'" do
-            mark = Mark.new('s', 7, 8)
-            mark.evaluate.should == "swept"
-          end
+    describe "#EVALUATE MARK" do
+      context "Player chooses to SWEEP (s) the cards in the pot" do
+        it "Evaluates the Mark as 'SWEPT'" do
+          mark = Mark.new('s', 7, 8)
+          mark.evaluate.should == "swept"
         end
       end
       
-      context "the player chooses to not take the cards in play" do
-        context "when current_card is greater than the next card" do
-          context "and the guess was higher" do      
-            it "answer should be 'correct'" do
-              mark = Mark.new('h', 7, 8)
-              mark.evaluate.should == "correct"
-            end
-          end
-          context "and the guess was lower" do      
-            it "answer should be 'wrong'" do
-              mark = Mark.new('l', 7, 8)
-              mark.evaluate.should == "wrong"
+      context "Player chooses to NOT SWEEP the cards in the pot" do
+        context "Flipped card is NOT a numbered card" do
+          context "Flipped card is a 'REVERSE'" do
+            it "Evaluates the Mark as 'REVERSE''" do
+              mark = Mark.new('h', 7, "reverse")
+              mark.evaluate.should == "reverse"
             end
           end
         end
         
-        context "when current_card is less than the next card" do
-          context "and the guess was higher" do      
-            it "answer should be 'wrong'" do
-              mark = Mark.new('h', 7, 6)
-              mark.evaluate.should == "wrong"
+        context "Flipped card IS a numbered card" do
+          context "Current_card > Flipped Card" do
+            context "Player's Guess was Higher" do      
+              it "Evaluates the Mark as 'CORRECT'" do
+                mark = Mark.new('h', 7, 8)
+                mark.evaluate.should == "correct"
+              end
+            end
+            context "Player's Guess was Lower" do      
+              it "Evaluates the Mark as 'WRONG'" do
+                mark = Mark.new('l', 7, 8)
+                mark.evaluate.should == "wrong"
+              end
             end
           end
-          context "and the guess was lower" do      
-            it "answer should be 'correct'" do
-              mark = Mark.new('l', 7, 6)
-              mark.evaluate.should == "correct"
+          context "Current_card < Flipped Card" do
+            context "Player's Guess was Higher" do      
+              it "Evaluates the Mark as 'WRONG'" do
+                mark = Mark.new('h', 7, 6)
+                mark.evaluate.should == "wrong"
+              end
+            end
+            context "Player's Guess was Lower" do      
+              it "Evaluates the Mark as 'CORRECT'" do
+                mark = Mark.new('l', 7, 6)
+                mark.evaluate.should == "correct"
+              end
             end
           end
-        end
         
-        context "when current_card is equal to the next card" do
-          context "and the guess was higher" do      
-            it "answer should be 'same'" do
-              mark = Mark.new('h', 7, 7)
-              mark.evaluate.should == "same"
+          context "Current card = Flipped card" do
+            context "Player's guess was higher" do      
+              it "Evaluates the Mark as 'SAME'" do
+                mark = Mark.new('h', 7, 7)
+                mark.evaluate.should == "same"
+              end
+            end
+            context "Player's guess was lower" do      
+              it "Evaluates the Mark as 'SAME'" do
+                mark = Mark.new('l', 7, 7)
+                mark.evaluate.should == "same"
+              end
             end
           end
-          context "and the guess was lower" do      
-            it "answer should be 'same'" do
-              mark = Mark.new('l', 7, 7)
-              mark.evaluate.should == "same"
-            end
-          end
-        end
-      
+        end      
       end
       
       

@@ -22,6 +22,8 @@ module TuffCookie
       numbered_cards = []
       (1..15).each do |card| 
         numbered_cards.push(card, card, card, card) # 4 for copies of card to the deck.
+        numbered_cards.push("reverse")
+
       end
       @total_cards = numbered_cards.length
       @numbered_cards = numbered_cards.shuffle
@@ -44,8 +46,6 @@ module TuffCookie
       new_correct_guess_tally = @tally.add_to_tally(@evaluation, current_correct_guess_tally)
       @current_player = assign_next_turn(@evaluation)
       decide_to_flip_another_card(@evaluation)
-      
-      
       @current_card = @flipped_card
       @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}" #Need Test
       @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"  #Need Test
@@ -62,6 +62,8 @@ module TuffCookie
     def decide_to_flip_another_card(evaluation)
       if evaluation == "wrong"
         dealer_flips_card
+      elsif evaluation == "reverse"
+        @flipped_card = @current_card
       end  
     end
 
@@ -70,7 +72,6 @@ module TuffCookie
       if evaluation == "swept" && @current_correct_guess_tally > 2
         @current_player.won_cards += @tally.pot
         @tally.pot = [@flipped_card]
-  
       elsif evaluation == "wrong"
         @players[previous_player].won_cards += @tally.pot
         @tally.pot = [@numbered_cards[0]]
@@ -88,6 +89,10 @@ module TuffCookie
     end
     
     def assign_next_turn(evaluation)
+      if evaluation == "reverse"
+        @players.reverse!
+        @current_player = @players[@players.index(@current_player)]
+      end
       if evaluation == "correct"
         @current_player
       else

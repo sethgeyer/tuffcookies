@@ -6,7 +6,7 @@ module TuffCookie
     let(:game) {Game.new(output) }
     
     describe "#INTRODUCTION and Name Request" do
-      it "asks a user for his/her name" do
+      it "Asks the player for his name" do
          output.should_receive(:puts).with("Welcome to Tuff Cookies!  What's your name?")
          game.start(7, "Seth")
       end
@@ -14,68 +14,53 @@ module TuffCookie
   
     describe "#START the Game" do
       before(:each) { game.start(7, "Seth") }
-      it "CREATES DECK for the game" do
-        game.total_cards.should == 60
+      it "Creates deck for the game" do
+        game.total_cards.should == 75
+        game.numbered_cards.should include("reverse")
       end
-      
-      it "CREATES CORRECT GUESS TALLY instance " do
+      it "Creates a 'CorrectGuessTally' instance " do
         game.tally.should be_an_instance_of CorrectGuessTally     
       end
-      
-      
-      
-      it "CREATES LIST OF PLAYERS and an instance of each" do
+      it "Creates a list of players and an instance of Player for each" do
         game.array_of_players.should == ["Seth", "Noah", "George", "Anne"] 
         for i in (0..game.array_of_players.size - 1)
           game.players[i].name.should == game.array_of_players[i]
-          #game.players[i].score.should == 0
-          game.players[i].won_cards.should == []
-          
+          game.players[i].won_cards.should == []  
         end
       end
-      
-
-      it "GREETS the player and establishes the playing order" do
+      it "Greets the player and establishes the initial playing order" do
         output.should_receive(:puts).with("Welcome Seth! The starting playing order is: Seth, Noah, George, Anne")
         game.start(7, "Seth")
       end
-    
-      it "ASSIGNS CURRENT CARD" do
+      it "Sets the 'current card' equal to the 'start card'" do
         game.current_card.should == 7
       end
-
-
     end
  
     describe "#GUESS" do
       before(:each) do 
-      game.start(7, "Seth")
-      end
-      it "creates a new Mark instance " do
-        game.guess('h')
-        game.current_card = 7
+        game.start(7, "Seth")
         game.flipped_card = 8 
+        game.guess('h')
+      end
+      it "Creates a new Mark instance " do
         game.mark.should be_an_instance_of Mark     
       end
-
-      it "creates the new current card" do
-        game.guess('h')
+      it "Sets the current card equal to the flipped card once the guess has been evaluated" do
         game.current_card.should == game.flipped_card         
       end 
-    
-      it "tells the player the answer to their guess and consecutive correct guesses" do
+      it "Tells the player the answer to their guess and consecutive correct guesses" do
         # Need test
         # Need test
       end 
-    
-      it "tells who the next player is and the current card in play" do
+      it "Tells who the next player is and the current card in play" do
         # Need test
         # Need test
       end 
     end
     
     describe "#DEALER FLIPS CARD" do
-      it "it draws the next card from the dealers deck" do
+      it "Draws the next card from the dealers shuffled deck" do
         game.numbered_cards = [8, 2, 4, 5]
         game.dealer_flips_card.should == 8
       end
@@ -84,57 +69,64 @@ module TuffCookie
     describe "#ASSIGN NEXT TURN" do
       before(:each) do
         game.start(7, "Seth")
-        game.guess('h')
       end
-      context "the evaluation of the current players guess is 'correct'" do
-        it "stays with the same player" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'REVERSE'" do
+        it "Reverses order of play to the previous player" do
+          game.current_player = game.assign_next_turn("reverse")
+          game.current_player.name.should == "Anne"
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'CORRECT'" do
+        it "Assigns the next turn to the current player" do
+        #game.guess('h')
           for i in (0..3)
             game.current_player = game.players[i]
             game.current_player = game.assign_next_turn("correct")
-            game.current_player.name.should == game.players[i].name
+            game.current_player.should == game.players[i]
           end
         end
       end
-      context "the evaluation of the current players guess is 'wrong'" do
-        it "the next player is assigned" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
+        it "Assigns the next turn to the next player in order" do
           for i in (0..3)
             game.current_player = game.players[i]
             game.current_player = game.assign_next_turn("wrong")
             if i == 3
-              game.current_player.name.should == game.players[0].name
+              game.current_player.should == game.players[0]
              else
-              game.current_player.name.should == game.players[i+1].name
+              game.current_player.should == game.players[i+1]
             end
           end
         end
       end
-      context "the evaluation of the current players guess is 'same'" do
-        it "the next player is assigned" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SAME'" do
+        it "Assigns the next turn to the next player in order." do
           for i in (0..3)
             game.current_player = game.players[i]
             game.current_player = game.assign_next_turn("same")
             if i == 3
-              game.current_player.name.should == game.players[0].name
+              game.current_player.should == game.players[0]
             else
-               game.current_player.name.should == game.players[i+1].name
+               game.current_player.should == game.players[i+1]
             end
           end
         end
       end
-      context "the evaluation of the current players guess is 'swept'" do
-        it "the next player is assigned" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
+        it "Assigns the next turn to the next player in order." do
           for i in (0..3)
             game.current_player = game.players[i]
             game.current_player = game.assign_next_turn("swept")
             if i == 3
-              game.current_player.name.should == game.players[0].name
+              game.current_player.should == game.players[0]
             else
-              game.current_player.name.should == game.players[i+1].name
+              game.current_player.should == game.players[i+1]
             end
           end
         end
       end
-    end  
+    end
+      
     describe "#UPDATE SCORE" do
       before(:each) do
         game.start(7, "Seth")
@@ -144,48 +136,56 @@ module TuffCookie
         game.flipped_card = 12
         game.tally.pot = [6,7,8]
       end
-      context "the evaluation of the current players guess is 'swept'" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
         before(:each) do
           game.current_correct_guess_tally = 3
           game.update_score("swept")
         end        
-        context "and the consecutive correct guesses >= 3" do
-          it "adds the pot to the current player's 'won cards" do
-            
+        context "The consecutive correct guesses >= 3" do
+          it "Adds the pot to the current player's 'won' cards" do
             game.players[0].won_cards.size.should == 3
           end
-          it "resets the pot to include the flipped card not yet played" do
+          it "Resets the pot to include the flipped card about to be played" do
             game.tally.pot.should == [12]
           end
         end
       end
-      context "the evaluation of the current players guess is 'wrong'" do
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
         before(:each) do
           game.update_score("wrong")
         end        
-        it "adds the pot to the current player's 'won cards" do
+        it "Adds the pot to the current player's 'won' cards" do
           game.players[3].won_cards.size.should == 6
         end
-        it "resets the pot to include first card in numbered_cards" do
+        it "Resets the pot to include the flipped card about to be played" do
           game.tally.pot.should == [7]
         end
       end
     end
+    
   describe "#DECIDE TO FLIP ANOTHER CARD" do
     before(:each) do
       game.numbered_cards = [4,5,6]
+      game.current_card = 3
       game.flipped_card = 9
     end
-    context "The evaluation of the current players guess is 'swept'" do
-      it "the dealer flips another card to begin a new round of guessing" do
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
+      it "Uses the existing not-yet-flipped card as the 'flipped card'" do
         game.decide_to_flip_another_card('swept')
         game.flipped_card.should == 9
       end
     end
-    context "The evaluation of the current players guess is 'wrong'" do
-      it "the dealer flips another card to begin a new round of guessing" do
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
+      it "Dealer flips a new card from the deck" do
         game.decide_to_flip_another_card('wrong')
         game.flipped_card.should == 4
+      end
+    end
+    
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'REVERSE'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("reverse")
+        game.flipped_card.should == 3
       end
     end
   end
