@@ -9,8 +9,11 @@ player_name = gets.chomp
 
 game.start(game.numbered_cards.shift, player_name)
 
-while guess = gets.chomp
-game.guess(guess, game.current_correct_guess_tally)
+
+while game.numbered_cards.size > 0
+  game.dealer_flips_card
+  guess = gets.chomp
+  game.guess(guess, game.current_correct_guess_tally)
 end
 
 =begin

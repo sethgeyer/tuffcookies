@@ -38,8 +38,7 @@ module TuffCookie
     end
     
     def guess(guess, current_correct_guess_tally = nil)
-      dealer_flips_card
-      @mark = Mark.new(guess, current_card, flipped_card)
+      @mark = Mark.new(guess, current_card, @flipped_card)
       @evaluation = @mark.evaluate
       @tally.update_pot(@evaluation, @flipped_card)
       update_score(@evaluation)
@@ -47,6 +46,11 @@ module TuffCookie
       @current_player = assign_next_turn(@evaluation)
       decide_to_flip_another_card(@evaluation)
       @current_card = @flipped_card
+      #########
+#       while @current_card == "reverse"
+#         decide_to_flip_another_card("another")
+#       end
+      #########
       @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}" #Need Test
       @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"  #Need Test
       #You need to add a test for the score output below.
@@ -64,6 +68,12 @@ module TuffCookie
         dealer_flips_card
       elsif evaluation == "reverse"
         @flipped_card = @current_card
+      ####### - as is, this does not count the second "reverse" in a double-reverse.
+#       elsif evaluation == "another"
+#         dealer_flips_card
+#         @current_player = assign_next_turn("reverse")
+#         @current_card = @flipped_card
+      #######
       end  
     end
 
