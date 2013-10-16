@@ -15,7 +15,10 @@ module TuffCookie
       @tally = CorrectGuessTally.new(start_card)
       @current_card = start_card
       @current_player = @players[0]
-      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}"
+      
+      @output.puts "NEXT CARDS ARE: #{@numbered_cards[0..10]}"
+      @output.puts "Higher(h) or Lower(l)?"
     end
     
     def create_deck
@@ -37,6 +40,12 @@ module TuffCookie
       end
     end
     
+    
+    def dealer_flips_card
+      @flipped_card = @numbered_cards.shift
+    end
+    
+    
     def guess(guess, current_correct_guess_tally = nil)
       @mark = Mark.new(guess, current_card, @flipped_card)
       @evaluation = @mark.evaluate
@@ -46,21 +55,17 @@ module TuffCookie
       @current_player = assign_next_turn(@evaluation)
       decide_to_flip_another_card(@evaluation)
       @current_card = @flipped_card
-      #########
-#       while @current_card == "reverse"
-#         decide_to_flip_another_card("another")
-#       end
-      #########
+     
       @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}" #Need Test
-      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}.... Higher(h) or Lower(l)? CHEAT: next_card = #{@numbered_cards}"  #Need Test
+      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}"
+      @output.puts "NEXT CARDS ARE: #{@numbered_cards[0..10]}"
+      @output.puts "Higher(h) or Lower(l)?"  #Need Test
       #You need to add a test for the score output below.
       @output.puts "Current_Scores:  \n#{@players[0].name} = #{@players[0].won_cards.size} #{@players[0].won_cards} \n#{@players[1].name} = #{@players[1].won_cards.size} #{@players[1].won_cards} \n#{@players[2].name} = #{@players[2].won_cards.size} #{@players[2].won_cards}  \n#{@players[3].name} = #{@players[3].won_cards.size} #{@players[3].won_cards} "
       @current_correct_guess_tally = new_correct_guess_tally 
     end   
         
-    def dealer_flips_card
-      @flipped_card = @numbered_cards.shift
-    end
+    
 
     
     def decide_to_flip_another_card(evaluation)
@@ -68,12 +73,7 @@ module TuffCookie
         dealer_flips_card
       elsif evaluation == "reverse"
         @flipped_card = @current_card
-      ####### - as is, this does not count the second "reverse" in a double-reverse.
-#       elsif evaluation == "another"
-#         dealer_flips_card
-#         @current_player = assign_next_turn("reverse")
-#         @current_card = @flipped_card
-      #######
+     
       end  
     end
 
