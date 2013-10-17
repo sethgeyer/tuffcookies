@@ -71,9 +71,12 @@ module TuffCookie
     def decide_to_flip_another_card(evaluation)
       if evaluation == "wrong"
         dealer_flips_card
+      elsif evaluation == "no_guess" ###########
       elsif evaluation == "reverse"
-        @flipped_card = @current_card
-     
+#         if @current_card == "reverse"
+#         else
+          @flipped_card = @current_card
+#         end
       end  
     end
 

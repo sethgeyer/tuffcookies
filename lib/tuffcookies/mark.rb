@@ -12,8 +12,10 @@ module TuffCookie
     def evaluate  
       if @guess == "s"
         answer = "swept"
-      elsif @guess != "s"
-        if @flipped_card == "reverse"
+      elsif @guess == "no_guess"
+        answer = "no_guess"
+      else
+        if @flipped_card == "reverse" 
           answer = "reverse"
         elsif @flipped_card != "reverse"
           @difference = flipped_card - current_card

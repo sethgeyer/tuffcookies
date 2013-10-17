@@ -12,6 +12,23 @@ module TuffCookie
     end
    
     describe "#EVALUATE MARK" do
+      context "The Current_Card is not 'Guessable'" do
+        context "The Current Card is a 'reverse'" do
+          it "Evaluates the Mark as 'SWEPT'" do
+            mark = Mark.new('no_guess', 7, 8)
+            mark.evaluate.should == "no_guess"
+          end
+        end
+      end
+      
+      
+      
+      
+      
+      
+      
+      
+      
       context "Player chooses to SWEEP (s) the cards in the pot" do
         it "Evaluates the Mark as 'SWEPT'" do
           mark = Mark.new('s', 7, 8)

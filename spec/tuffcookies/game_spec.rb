@@ -36,7 +36,21 @@ module TuffCookie
         game.current_card.should == 7
       end
     end
- 
+
+#### Need to test the items in bin folder.  This doesn't currently handle it. 
+#     describe "#NO_GUESS SCENARIO" do
+#       context "Current card is not guessable because it equals 'reverse'" do
+#         it "assisgns 'guess' equal to 'no_guess'" do
+#           game.start(7, "Seth")
+#           game.current_card = "reverse"
+#           game.flipped_card = 8
+#           game.guess('no_guess')
+#           game.evaluation.should == "no_guess"
+#         end
+#       end
+#     end    
+    
+    
     describe "#GUESS" do
       before(:each) do 
         game.start(7, "Seth")
