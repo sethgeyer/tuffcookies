@@ -56,16 +56,18 @@ module TuffCookie
       decide_to_flip_another_card(@evaluation)
       @current_card = @flipped_card
      
-      @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}" #Need Test
-      @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}"
-      @output.puts "NEXT CARDS ARE: #{@numbered_cards[0..10]}"
-      @output.puts "Higher(h) or Lower(l)?"  #Need Test
+      @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{new_correct_guess_tally}  POT: #{tally.pot}\n\n" #Need Test
+      @output.puts "#{@current_player.name.upcase}'S TURN..........
+       The Card in Play is a #{@current_card}"
+      #@output.puts "Next Cards Are: #{@numbered_cards[0..10]}"
       #You need to add a test for the score output below.
       @output.puts "Current_Scores:  \n#{@players[0].name} = #{@players[0].won_cards.size} #{@players[0].won_cards} \n#{@players[1].name} = #{@players[1].won_cards.size} #{@players[1].won_cards} \n#{@players[2].name} = #{@players[2].won_cards.size} #{@players[2].won_cards}  \n#{@players[3].name} = #{@players[3].won_cards.size} #{@players[3].won_cards} "
+      @output.puts "Higher(h) or Lower(l)?"  #Need Test
+
       @current_correct_guess_tally = new_correct_guess_tally 
     end   
         
-    
+  
 
     
     def decide_to_flip_another_card(evaluation)
