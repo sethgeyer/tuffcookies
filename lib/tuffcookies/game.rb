@@ -41,7 +41,7 @@ module TuffCookie
     end
     
     def player_choices
-      if current_correct_guess_tally < 3
+      if @tally.new_correct_guess_tally < 3
         "Higher(h) or Lower(l)?"
       else 
         "Higher(h) or Lower(l) or Sweep(s)?"
@@ -64,13 +64,12 @@ module TuffCookie
       @current_card = @flipped_card
      
       @output.puts "\n#{@evaluation.capitalize}. Consecutive Correct Guesses: #{@tally.new_correct_guess_tally}  POT: #{tally.pot}\n\n" #Need Test
-      @output.puts "#{@current_player.name.upcase}'S TURN..........
-       The Card in Play is a #{@current_card}"
+      @output.puts "#{@current_player.name.upcase}'S TURN..........The Card in Play is a #{@current_card}"
       #@output.puts "Next Cards Are: #{@numbered_cards[0..10]}"
       #You need to add a test for the score output below.
       @output.puts "Current_Scores:  \n#{@players[0].name} = #{@players[0].won_cards.size} #{@players[0].won_cards} \n#{@players[1].name} = #{@players[1].won_cards.size} #{@players[1].won_cards} \n#{@players[2].name} = #{@players[2].won_cards.size} #{@players[2].won_cards}  \n#{@players[3].name} = #{@players[3].won_cards.size} #{@players[3].won_cards} "
       #choices = player_choices
-      #@output.puts "#{player_choices}"  #Need Test
+      @output.puts player_choices  #Need Test
 
       @current_correct_guess_tally = @tally.new_correct_guess_tally 
     end   

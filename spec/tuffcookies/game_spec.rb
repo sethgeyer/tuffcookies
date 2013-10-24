@@ -47,14 +47,14 @@ module TuffCookie
       context "There are < 3 Correct Consecutive Guesses" do
         it "returns 'Higher(h) or Lower(l)?'" do
           #game.guess('h', 2)
-          game.current_correct_guess_tally = 2
+          game.tally.new_correct_guess_tally = 2
           game.player_choices.should == "Higher(h) or Lower(l)?" 
         end
       end
       context "There are 3 or more Correct Consecutive Guesses" do
         it "returns 'Higher(h) or Lower(l) or Sweep(s)?'" do
           #game.guess('h', 3)
-          game.current_correct_guess_tally = 3
+          game.tally.new_correct_guess_tally = 3
           game.player_choices.should == "Higher(h) or Lower(l) or Sweep(s)?" 
         end
       end
