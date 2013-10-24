@@ -14,25 +14,17 @@ module TuffCookie
     describe "#EVALUATE MARK" do
       context "The Current_Card is not 'Guessable'" do
         context "The Current Card is a 'reverse'" do
-          it "Evaluates the Mark as 'SWEPT'" do
-            mark = Mark.new('no_guess', 7, 8)
-            mark.evaluate.should == "no_guess"
+          it "Evaluates the Mark as 'No Guess'" do
+            mark = Mark.new('No Guess', 7, 8)
+            mark.evaluate.should == "No Guess"
           end
         end
       end
       
-      
-      
-      
-      
-      
-      
-      
-      
       context "Player chooses to SWEEP (s) the cards in the pot" do
         it "Evaluates the Mark as 'SWEPT'" do
           mark = Mark.new('s', 7, 8)
-          mark.evaluate.should == "swept"
+          mark.evaluate.should == "Swept"
         end
       end
       
@@ -40,10 +32,26 @@ module TuffCookie
         context "Flipped card is NOT a numbered card" do
           context "Flipped card is a 'REVERSE'" do
             it "Evaluates the Mark as 'REVERSE''" do
-              mark = Mark.new('h', 7, "reverse")
-              mark.evaluate.should == "reverse"
+              mark = Mark.new('h', 7, "Reverse")
+              mark.evaluate.should == "Reverse"
             end
           end
+          context "Flipped card is a 'GIVE 2 CARDS'" do
+            it "Evaluates the Mark as 'GIVE 2 CARDS''" do
+              mark = Mark.new('h', 7, "Give 2")
+              mark.evaluate.should == "Give 2"
+            end
+          end
+#           context "Flipped card is a 'GIVE ME 2 CARDS'" do
+#             it "Evaluates the Mark as 'GIVE ME 2 CARDS''" do
+#               mark = Mark.new('h', 7, "Give Me 2")
+#               mark.evaluate.should == "Give Me 2"
+#             end
+#           end
+          
+          
+          
+          
         end
         
         context "Flipped card IS a numbered card" do
@@ -51,13 +59,13 @@ module TuffCookie
             context "Player's Guess was Higher" do      
               it "Evaluates the Mark as 'CORRECT'" do
                 mark = Mark.new('h', 7, 8)
-                mark.evaluate.should == "correct"
+                mark.evaluate.should == "Correct"
               end
             end
             context "Player's Guess was Lower" do      
               it "Evaluates the Mark as 'WRONG'" do
                 mark = Mark.new('l', 7, 8)
-                mark.evaluate.should == "wrong"
+                mark.evaluate.should == "Wrong"
               end
             end
           end
@@ -65,13 +73,13 @@ module TuffCookie
             context "Player's Guess was Higher" do      
               it "Evaluates the Mark as 'WRONG'" do
                 mark = Mark.new('h', 7, 6)
-                mark.evaluate.should == "wrong"
+                mark.evaluate.should == "Wrong"
               end
             end
             context "Player's Guess was Lower" do      
               it "Evaluates the Mark as 'CORRECT'" do
                 mark = Mark.new('l', 7, 6)
-                mark.evaluate.should == "correct"
+                mark.evaluate.should == "Correct"
               end
             end
           end
@@ -80,13 +88,13 @@ module TuffCookie
             context "Player's guess was higher" do      
               it "Evaluates the Mark as 'SAME'" do
                 mark = Mark.new('h', 7, 7)
-                mark.evaluate.should == "same"
+                mark.evaluate.should == "Same"
               end
             end
             context "Player's guess was lower" do      
               it "Evaluates the Mark as 'SAME'" do
                 mark = Mark.new('l', 7, 7)
-                mark.evaluate.should == "same"
+                mark.evaluate.should == "Same"
               end
             end
           end

@@ -11,28 +11,30 @@ module TuffCookie
   
     def evaluate  
       if @guess == "s"
-        answer = "swept"
-      elsif @guess == "no_guess"
-        answer = "no_guess"
+        answer = "Swept"
+      elsif @guess == "No Guess"
+        answer = "No Guess"
       else
-        if @flipped_card == "reverse" 
-          answer = "reverse"
-        elsif @flipped_card != "reverse"
+        if @flipped_card == "Reverse" 
+          answer = "Reverse"
+        elsif @flipped_card == "Give 2"
+          answer = "Give 2"
+        elsif @flipped_card != "Reverse"
           @difference = flipped_card - current_card
           if @difference > 0 # flipped card is greater than current card
             answer = if @guess == 'h'
-              "correct"  
+              "Correct"  
             else
-              "wrong"
+              "Wrong"
             end   
           elsif @difference < 0 #flipped card is less than the current card
             answer = if @guess == 'h'
-              "wrong"
+              "Wrong"
             else
-              "correct"
+              "Correct"
             end 
           elsif @difference == 0 # flipped card is the same as current card
-            answer = "same"
+            answer = "Same"
           end
         end
       end

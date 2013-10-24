@@ -15,8 +15,9 @@ module TuffCookie
     describe "#START the Game" do
       before(:each) { game.start(7, "Seth") }
       it "Creates deck for the game" do
-        game.total_cards.should == 75
-        game.numbered_cards.should include("reverse")
+        game.total_cards.should == 38
+        game.numbered_cards.count("Give 2").should == 4
+        game.numbered_cards.count("Reverse").should == 4
       end
       it "Creates a 'CorrectGuessTally' instance " do
         game.tally.should be_an_instance_of CorrectGuessTally     
@@ -41,24 +42,20 @@ module TuffCookie
     describe "#PLAYER_CHOICES" do
       before(:each) do 
         game.start(7, "Seth") 
-        game.flipped_card = 8
       end
       
       context "There are < 3 Correct Consecutive Guesses" do
         it "returns 'Higher(h) or Lower(l)?'" do
-          #game.guess('h', 2)
           game.tally.new_correct_guess_tally = 2
           game.player_choices.should == "Higher(h) or Lower(l)?" 
         end
       end
       context "There are 3 or more Correct Consecutive Guesses" do
         it "returns 'Higher(h) or Lower(l) or Sweep(s)?'" do
-          #game.guess('h', 3)
           game.tally.new_correct_guess_tally = 3
           game.player_choices.should == "Higher(h) or Lower(l) or Sweep(s)?" 
         end
       end
-      
     end
 
 
@@ -96,9 +93,30 @@ module TuffCookie
       before(:each) do
         game.start(7, "Seth")
       end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'NO_GUESS'" do
+          context "The current card in play is a 'REVERSE'" do
+            it "Reverses order of play to the previous player" do 
+              game.current_card = "Reverse"
+              game.current_player = game.assign_next_turn("No Guess")
+              game.current_player.name.should == "Anne"
+            end
+          end
+          context "The current card in play is NOT 'REVERSE'" do
+            it "Assigns the next turn to the current player" do 
+              game.current_card != "reverse"
+              game.current_player = game.assign_next_turn("No Guess")
+              game.current_player.name.should == "Seth"
+            end
+          end
+      end
+      
+      
+      
+      
+      
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'REVERSE'" do
         it "Reverses order of play to the previous player" do
-          game.current_player = game.assign_next_turn("reverse")
+          game.current_player = game.assign_next_turn("Reverse")
           game.current_player.name.should == "Anne"
         end
       end
@@ -107,11 +125,31 @@ module TuffCookie
         #game.guess('h')
           for i in (0..3)
             game.current_player = game.players[i]
-            game.current_player = game.assign_next_turn("correct")
+            game.current_player = game.assign_next_turn("Correct")
             game.current_player.should == game.players[i]
           end
         end
       end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'GIVE_2'" do
+        it "Assigns the next turn to the current player" do
+        #game.guess('h')
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("Give 2")
+            game.current_player.should == game.players[i]
+          end
+        end
+      end
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
         it "Assigns the next turn to the next player in order" do
           for i in (0..3)
@@ -165,7 +203,7 @@ module TuffCookie
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
         before(:each) do
           game.current_correct_guess_tally = 3
-          game.update_score("swept")
+          game.update_score("Swept")
         end        
         context "The consecutive correct guesses >= 3" do
           it "Adds the pot to the current player's 'won' cards" do
@@ -178,7 +216,7 @@ module TuffCookie
       end
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
         before(:each) do
-          game.update_score("wrong")
+          game.update_score("Wrong")
         end        
         it "Adds the pot to the current player's 'won' cards" do
           game.players[3].won_cards.size.should == 6
@@ -203,17 +241,25 @@ module TuffCookie
     end
     context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
       it "Dealer flips a new card from the deck" do
-        game.decide_to_flip_another_card('wrong')
+        game.decide_to_flip_another_card('Wrong')
         game.flipped_card.should == 4
       end
     end
     
     context "The evaluation of the Mark(guess, current_card, flipped_card) is 'REVERSE'" do
       it "Uses the previous 'numbered' card as the 'flipped_card'" do
-        game.decide_to_flip_another_card("reverse")
+        game.decide_to_flip_another_card("Reverse")
         game.flipped_card.should == 3
       end
     end
+    
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'GIVE_2'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("Give 2")
+        game.flipped_card.should == 3
+      end
+    end
+    
   end
   
   
