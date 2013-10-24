@@ -51,6 +51,14 @@ module TuffCookie
         end
       end
 
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'GIVE_ME_2'" do
+        it "Adds the current card to the pot" do
+          tally.update_pot("Give Me 2", "Give Me 2")
+          tally.pot.should include("Give Me 2")
+        end
+      end
+
+
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'NO_GUESS'" do
         it "Does NOT add the current card to the pot" do
           tally.update_pot("No Guess", 8)
@@ -77,10 +85,26 @@ module TuffCookie
          end
       end
       
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
+         context "The current_correct_guess_tally is equal to 0" do
+           it "Sets the new_correct_guess_tally equal to 1" do             
+             expect {tally.add_to_tally("Swept", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+           end
+         end
+         context "The current_correct_guess_tally is equal to 2" do
+           it "Sets the new_correct_guess_tally equal to 3" do
+             expect {tally.add_to_tally("Swept", 2)}.to change{tally.new_correct_guess_tally}.to(0)        
+           end
+         end
+      end
+      
+      
+      
+      
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'NO_GUESS'" do
          context "The current_correct_guess_tally is equal to 0" do
            it "Sets the new_correct_guess_tally equal to 0" do             
-             expect {tally.add_to_tally("no_guess", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+             expect {tally.add_to_tally("No Guess", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
            end
          end
          context "The current_correct_guess_tally is equal to 2" do
@@ -93,7 +117,7 @@ module TuffCookie
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
         context "The current_correct_guess_tally is equal to 0" do
           it "Sets the new_correct_guess_tally equal to 0" do
-            expect {tally.add_to_tally("wrong", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+            expect {tally.add_to_tally("Wrong", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
           end
         end
         context "The current_correct_guess_tally is equal to 2" do
@@ -117,7 +141,7 @@ module TuffCookie
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'REVERSE'" do
         context "The current_correct_guess_tally is equal to 0" do
           it "Sets the new_correct_guess_tally equal to 0" do
-            expect {tally.add_to_tally("reverse", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+            expect {tally.add_to_tally("Reverse", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
           end
         end
         context "The current_correct_guess_tally is equal to 2" do
@@ -130,7 +154,7 @@ module TuffCookie
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'GIVE_2'" do
         context "The current_correct_guess_tally is equal to 0" do
           it "Sets the new_correct_guess_tally equal to 0" do
-            expect {tally.add_to_tally("give_2", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+            expect {tally.add_to_tally("Give 2", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
           end
         end
         context "The current_correct_guess_tally is equal to 2" do
@@ -139,6 +163,21 @@ module TuffCookie
           end
         end
       end
+      
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'GIVE_ME_2'" do
+        context "The current_correct_guess_tally is equal to 0" do
+          it "Sets the new_correct_guess_tally equal to 0" do
+            expect {tally.add_to_tally("Give Me 2", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+          end
+        end
+        context "The current_correct_guess_tally is equal to 2" do
+          it "Sets the new_correct_guess_tally equal to 2" do
+            expect {tally.add_to_tally("Give Me 2", 2)}.to change{tally.new_correct_guess_tally}.to(2)        
+          end
+        end
+      end
+      
+      
       
       
       

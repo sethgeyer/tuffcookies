@@ -11,15 +11,17 @@ module TuffCookie
        @new_correct_guess_tally = current_correct_guess_tally.to_i
        if evaluation == "Correct"
          @new_correct_guess_tally += 1
-       elsif evaluation == "Same" || evaluation == "Reverse" || evaluation == "No Guess" || evaluation == "Give 2"
+       elsif evaluation == "Same" || evaluation == "Reverse" || evaluation == "No Guess" || evaluation == "Give 2" || evaluation == "Give Me 2"
          @new_correct_guess_tally
-       elsif evaluation == "Wrong"
+       elsif evaluation == "Wrong" || evaluation == "Swept"
          @new_correct_guess_tally = 0
+       else 
+        @new_correct_guess_tally = "666- EVIL ERROR"
        end       
      end
      
      def update_pot(evaluation, flipped_card)
-        if evaluation == "Correct" || evaluation == "Wrong" || evaluation == "Same"  || evaluation == "Reverse" || evaluation == 'No Guess'  || evaluation == 'Give 2'
+        if evaluation == "Correct" || evaluation == "Wrong" || evaluation == "Same"  || evaluation == "Reverse" || evaluation == 'No Guess'  || evaluation == 'Give 2'  || evaluation == 'Give Me 2'
           @pot << flipped_card
         end
         

@@ -26,8 +26,12 @@ module TuffCookie
       (1..15).each do |card| 
         numbered_cards.push(card, card) # 4 for copies of card to the deck.
       end
-      numbered_cards.push("Reverse", "Reverse", "Reverse", "Reverse")
-      numbered_cards.push("Give 2", "Give 2", "Give 2", "Give 2")
+      action_cards = ["Reverse", "Give 2", "Give Me 2"]
+      action_cards.each do |card|
+        for i in (0..3)
+          numbered_cards.push(card)
+        end
+      end
       @total_cards = numbered_cards.length
       @numbered_cards = numbered_cards.shuffle
     end
@@ -81,11 +85,8 @@ module TuffCookie
       if evaluation == "Wrong"
         dealer_flips_card
       elsif evaluation == "No Guess" ###########
-      elsif evaluation == "Reverse" || evaluation == "Give 2"
-#         if @current_card == "reverse"
-#         else
+      elsif evaluation == "Reverse" || evaluation == "Give 2" || evaluation == "Give Me 2"
           @flipped_card = @current_card
-#         end
       end  
     end
 
@@ -115,15 +116,19 @@ module TuffCookie
           if @current_card == "Reverse"
             @players.reverse!
             @current_player = @players[next_turn]
-          else
+          elsif @current_card == "Give 2"
             @current_player
+          elsif @current_card == "Give Me 2"
+            @current_player
+          else
+            "666- EVIL ERROR"
           end
           
       elsif evaluation == "Reverse"
         @players.reverse!
         @current_player = @players[next_turn] #@players[@players.index(@current_player)]
         
-      elsif evaluation == "Correct"  || evaluation == "Give 2" # || evaluation == "no_guess"
+      elsif evaluation == "Correct"  || evaluation == "Give 2" || evaluation == "Give Me 2" # || evaluation == "no_guess"
         @current_player
       else
         @players[next_turn]

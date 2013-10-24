@@ -42,12 +42,12 @@ module TuffCookie
               mark.evaluate.should == "Give 2"
             end
           end
-#           context "Flipped card is a 'GIVE ME 2 CARDS'" do
-#             it "Evaluates the Mark as 'GIVE ME 2 CARDS''" do
-#               mark = Mark.new('h', 7, "Give Me 2")
-#               mark.evaluate.should == "Give Me 2"
-#             end
-#           end
+          context "Flipped card is a 'GIVE ME 2 CARDS'" do
+            it "Evaluates the Mark as 'GIVE ME 2 CARDS''" do
+              mark = Mark.new('h', 7, "Give Me 2")
+              mark.evaluate.should == "Give Me 2"
+            end
+          end
           
           
           
