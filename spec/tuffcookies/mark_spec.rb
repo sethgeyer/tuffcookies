@@ -49,7 +49,12 @@ module TuffCookie
             end
           end
           
-          
+          context "Flipped card is a 'SUCK IT NERDS'" do
+            it "Evaluates the Mark as 'SUCK IT NERDS''" do
+              mark = Mark.new('h', 7, "Suck It Nerds")
+              mark.evaluate.should == "Suck It Nerds"
+            end
+          end
           
           
         end

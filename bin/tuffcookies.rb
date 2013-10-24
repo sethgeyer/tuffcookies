@@ -12,7 +12,7 @@ game.start(game.numbered_cards.shift, player_name)
 
 while game.numbered_cards.size > 0
   game.dealer_flips_card
-  if game.current_card != "Reverse" && game.current_card != "Give 2" && game.current_card != "Give Me 2"#####
+  if game.current_card != "Reverse" && game.current_card != "Give 2" && game.current_card != "Give Me 2" && game.current_card != "Suck It Nerds"#####
     guess = gets.chomp
   else   #####
     guess = 'No Guess' #####

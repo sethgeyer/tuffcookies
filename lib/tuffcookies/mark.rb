@@ -21,6 +21,11 @@ module TuffCookie
           answer = "Give 2"
         elsif @flipped_card == "Give Me 2"
           answer = "Give Me 2"
+        elsif @flipped_card == "Suck It Nerds"
+          answer = "Suck It Nerds"
+        
+        
+        
         elsif @flipped_card != "Reverse"
           @difference = flipped_card - current_card
           if @difference > 0 # flipped card is greater than current card

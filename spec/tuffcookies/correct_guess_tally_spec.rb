@@ -57,7 +57,13 @@ module TuffCookie
           tally.pot.should include("Give Me 2")
         end
       end
-
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SUCK IT NERDS'" do
+        it "Adds the current card to the pot" do
+          tally.update_pot("Suck It Nerds", "Suck It Nerds")
+          tally.pot.should include("Suck It Nerds")
+        end
+      end
+      
 
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'NO_GUESS'" do
         it "Does NOT add the current card to the pot" do
@@ -177,6 +183,18 @@ module TuffCookie
         end
       end
       
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SUCK IT NERDS'" do
+        context "The current_correct_guess_tally is equal to 0" do
+          it "Sets the new_correct_guess_tally equal to 0" do
+            expect {tally.add_to_tally("Suck It Nerds", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+          end
+        end
+        context "The current_correct_guess_tally is equal to 2" do
+          it "Sets the new_correct_guess_tally equal to 2" do
+            expect {tally.add_to_tally("Suck It Nerds", 2)}.to change{tally.new_correct_guess_tally}.to(2)        
+          end
+        end
+      end
       
       
       
