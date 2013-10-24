@@ -29,7 +29,8 @@ module TuffCookie
           answer = "Stack Swap"
         elsif @flipped_card == "War"
           answer = "War"
-        
+         elsif @flipped_card == "Skip"
+          answer = "Skip"
         
         
         elsif @flipped_card != "Reverse"

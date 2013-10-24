@@ -15,8 +15,8 @@ module TuffCookie
     describe "#START the Game" do
       before(:each) { game.start(7, "Seth") }
       it "Creates deck for the game" do
-        game.total_cards.should == 58
-        action_cards = ["Give 2", "Reverse", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War"]
+        game.total_cards.should == 62
+        action_cards = ["Give 2", "Reverse", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War", "Skip"]
         action_cards.each do |card|
           game.numbered_cards.count(card).should == 4
         end
@@ -150,7 +150,13 @@ module TuffCookie
                 game.current_player.name.should == "Seth"
               end
             end
-
+            context "The current card in play is a 'Skip'" do
+            it "Assigns the next turn to the next player in order" do 
+              game.current_card = "Skip"
+              game.current_player = game.assign_next_turn("No Guess")
+              game.current_player.name.should == "Noah"
+            end
+          end
 
           end
       end 
@@ -161,6 +167,15 @@ module TuffCookie
           game.current_player.name.should == "Anne"
         end
       end
+      
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Skip'" do
+        it "Assigns the next turn to the next player in order" do
+          game.current_player = game.assign_next_turn("Skip")
+          game.current_player.name.should == "Noah"
+        end
+      end
+      
+      
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'CORRECT'" do
         it "Assigns the next turn to the current player" do
         #game.guess('h')
@@ -247,7 +262,7 @@ module TuffCookie
         it "Assigns the next turn to the next player in order" do
           for i in (0..3)
             game.current_player = game.players[i]
-            game.current_player = game.assign_next_turn("wrong")
+            game.current_player = game.assign_next_turn("Wrong")
             if i == 3
               game.current_player.should == game.players[0]
              else
@@ -260,7 +275,7 @@ module TuffCookie
         it "Assigns the next turn to the next player in order." do
           for i in (0..3)
             game.current_player = game.players[i]
-            game.current_player = game.assign_next_turn("same")
+            game.current_player = game.assign_next_turn("Same")
             if i == 3
               game.current_player.should == game.players[0]
             else
@@ -273,7 +288,7 @@ module TuffCookie
         it "Assigns the next turn to the next player in order." do
           for i in (0..3)
             game.current_player = game.players[i]
-            game.current_player = game.assign_next_turn("swept")
+            game.current_player = game.assign_next_turn("Swept")
             if i == 3
               game.current_player.should == game.players[0]
             else
@@ -332,6 +347,14 @@ module TuffCookie
         game.flipped_card.should == 9
       end
     end
+    
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Correct'" do
+      it "Dealer flips a new card from the deck" do
+        game.decide_to_flip_another_card('Correct')
+        game.flipped_card.should == 9
+      end
+    end
+    
     context "The evaluation of the Mark(guess, current_card, flipped_card) is 'WRONG'" do
       it "Dealer flips a new card from the deck" do
         game.decide_to_flip_another_card('Wrong')
@@ -382,6 +405,12 @@ module TuffCookie
     context "The evaluation of the Mark(guess, current_card, flipped_card) is 'War'" do
       it "Uses the previous 'numbered' card as the 'flipped_card'" do
         game.decide_to_flip_another_card("War")
+        game.flipped_card.should == 3
+      end
+    end
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Skip'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("Skip")
         game.flipped_card.should == 3
       end
     end

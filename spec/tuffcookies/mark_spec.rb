@@ -77,7 +77,12 @@ module TuffCookie
               mark.evaluate.should == "War"
             end
           end
-          
+          context "Flipped card is a 'Skip'" do
+            it "Evaluates the Mark as 'Skip'" do
+              mark = Mark.new('h', 7, "Skip")
+              mark.evaluate.should == "Skip"
+            end
+          end
           
           
           
