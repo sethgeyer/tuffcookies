@@ -23,6 +23,12 @@ module TuffCookie
           answer = "Give Me 2"
         elsif @flipped_card == "Suck It Nerds"
           answer = "Suck It Nerds"
+        elsif @flipped_card == "Roshambo"
+          answer = "Roshambo"
+        elsif @flipped_card == "Stack Swap"
+          answer = "Stack Swap"
+        elsif @flipped_card == "War"
+          answer = "War"
         
         
         

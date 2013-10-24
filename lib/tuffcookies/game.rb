@@ -26,7 +26,7 @@ module TuffCookie
       (1..15).each do |card| 
         numbered_cards.push(card, card) # 4 for copies of card to the deck.
       end
-      action_cards = ["Reverse", "Give 2", "Give Me 2", "Suck It Nerds"]
+      action_cards = ["Reverse", "Give 2", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War"]
       action_cards.each do |card|
         for i in (0..3)
           numbered_cards.push(card)
@@ -84,9 +84,11 @@ module TuffCookie
     def decide_to_flip_another_card(evaluation)
       if evaluation == "Wrong"
         dealer_flips_card
-      elsif evaluation == "No Guess" ###########
-      elsif evaluation == "Reverse" || evaluation == "Give 2" || evaluation == "Give Me 2" || evaluation == "Suck It Nerds"
+      elsif evaluation == "No Guess" || evaluation == "Swept"#Do Nothing
+      elsif evaluation == "Reverse" || evaluation == "Give 2" || evaluation == "Give Me 2" || evaluation == "Suck It Nerds" || evaluation == "Roshambo" || evaluation == "Stack Swap" || evaluation == "War"
           @flipped_card = @current_card
+      else
+        @flipped_card = "666- EVIL ERROR"
       end  
     end
 
@@ -122,6 +124,12 @@ module TuffCookie
             @current_player
           elsif @current_card == "Suck It Nerds"
             @current_player
+          elsif @current_card == "Roshambo"
+            @current_player
+          elsif @current_card == "Stack Swap"
+            @current_player
+          elsif @current_card == "War"
+            @current_player
           else
             "666- EVIL ERROR"
           end
@@ -130,7 +138,7 @@ module TuffCookie
         @players.reverse!
         @current_player = @players[next_turn] #@players[@players.index(@current_player)]
         
-      elsif evaluation == "Correct"  || evaluation == "Give 2" || evaluation == "Give Me 2" || evaluation == "Suck It Nerds"
+      elsif evaluation == "Correct"  || evaluation == "Give 2" || evaluation == "Give Me 2" || evaluation == "Suck It Nerds" || evaluation == "Roshambo" || evaluation == "Stack Swap" || evaluation == "War"
         @current_player
       else
         @players[next_turn]

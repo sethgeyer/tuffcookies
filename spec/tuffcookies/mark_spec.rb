@@ -57,6 +57,36 @@ module TuffCookie
           end
           
           
+           context "Flipped card is a 'Roshambo'" do
+            it "Evaluates the Mark as 'Roshambo" do
+              mark = Mark.new('h', 7, "Roshambo")
+              mark.evaluate.should == "Roshambo"
+            end
+          end
+          
+           context "Flipped card is a 'Stack Swap'" do
+            it "Evaluates the Mark as 'Stack Swap'" do
+              mark = Mark.new('h', 7, "Stack Swap")
+              mark.evaluate.should == "Stack Swap"
+            end
+          end
+          
+           context "Flipped card is a 'War'" do
+            it "Evaluates the Mark as 'War'" do
+              mark = Mark.new('h', 7, "War")
+              mark.evaluate.should == "War"
+            end
+          end
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
         end
         
         context "Flipped card IS a numbered card" do

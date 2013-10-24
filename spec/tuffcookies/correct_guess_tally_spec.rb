@@ -64,6 +64,37 @@ module TuffCookie
         end
       end
       
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Roshambo'" do
+        it "Adds the current card to the pot" do
+          tally.update_pot("Roshambo", "Roshambo")
+          tally.pot.should include("Roshambo")
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Stack Swap'" do
+        it "Adds the current card to the pot" do
+          tally.update_pot("Stack Swap", "Stack Swap")
+          tally.pot.should include("Stack Swap")
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'War'" do
+        it "Adds the current card to the pot" do
+          tally.update_pot("War", "War")
+          tally.pot.should include("War")
+        end
+      end
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
       context "The evaluation of the Mark(guess, current_card, flipped_card) is 'NO_GUESS'" do
         it "Does NOT add the current card to the pot" do
@@ -199,6 +230,42 @@ module TuffCookie
       
       
       
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Roshambo'" do
+        context "The current_correct_guess_tally is equal to 0" do
+          it "Sets the new_correct_guess_tally equal to 0" do
+            expect {tally.add_to_tally("Roshambo", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+          end
+        end
+        context "The current_correct_guess_tally is equal to 2" do
+          it "Sets the new_correct_guess_tally equal to 2" do
+            expect {tally.add_to_tally("Roshambo", 2)}.to change{tally.new_correct_guess_tally}.to(2)        
+          end
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Stack Swap'" do
+        context "The current_correct_guess_tally is equal to 0" do
+          it "Sets the new_correct_guess_tally equal to 0" do
+            expect {tally.add_to_tally("Stack Swap", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+          end
+        end
+        context "The current_correct_guess_tally is equal to 2" do
+          it "Sets the new_correct_guess_tally equal to 2" do
+            expect {tally.add_to_tally("Stack Swap", 2)}.to change{tally.new_correct_guess_tally}.to(2)        
+          end
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'War'" do
+        context "The current_correct_guess_tally is equal to 0" do
+          it "Sets the new_correct_guess_tally equal to 0" do
+            expect {tally.add_to_tally("War", 0)}.to change{tally.new_correct_guess_tally}.to(0)        
+          end
+        end
+        context "The current_correct_guess_tally is equal to 2" do
+          it "Sets the new_correct_guess_tally equal to 2" do
+            expect {tally.add_to_tally("War", 2)}.to change{tally.new_correct_guess_tally}.to(2)        
+          end
+        end
+      end
       
     end
 

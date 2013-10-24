@@ -15,13 +15,14 @@ module TuffCookie
     describe "#START the Game" do
       before(:each) { game.start(7, "Seth") }
       it "Creates deck for the game" do
-        game.total_cards.should == 46
-        game.numbered_cards.count("Give 2").should == 4
-        game.numbered_cards.count("Reverse").should == 4
-        game.numbered_cards.count("Give Me 2").should == 4
-        game.numbered_cards.count("Suck It Nerds").should == 4
-        
+        game.total_cards.should == 58
+        action_cards = ["Give 2", "Reverse", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War"]
+        action_cards.each do |card|
+          game.numbered_cards.count(card).should == 4
+        end
       end
+                
+     
       it "Creates a 'CorrectGuessTally' instance " do
         game.tally.should be_an_instance_of CorrectGuessTally     
       end
@@ -127,6 +128,28 @@ module TuffCookie
                 game.current_player.name.should == "Seth"
               end
             end
+            
+            context "The current card is 'Roshambo'" do
+              it "Assigns the next turn to the current player" do 
+                game.current_card = "Roshambo"
+                game.current_player = game.assign_next_turn("No Guess")
+                game.current_player.name.should == "Seth"
+              end
+            end
+            context "The current card is 'Stack Swap'" do
+              it "Assigns the next turn to the current player" do 
+                game.current_card = "Stack Swap"
+                game.current_player = game.assign_next_turn("No Guess")
+                game.current_player.name.should == "Seth"
+              end
+            end
+            context "The current card is 'War'" do
+              it "Assigns the next turn to the current player" do 
+                game.current_card = "War"
+                game.current_player = game.assign_next_turn("No Guess")
+                game.current_player.name.should == "Seth"
+              end
+            end
 
 
           end
@@ -181,6 +204,38 @@ module TuffCookie
         end
       end
       
+      
+      
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Roshambo'" do
+        it "Assigns the next turn to the current player" do
+        #game.guess('h')
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("Roshambo")
+            game.current_player.should == game.players[i]
+          end
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Stack Swap'" do
+        it "Assigns the next turn to the current player" do
+        #game.guess('h')
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("Stack Swap")
+            game.current_player.should == game.players[i]
+          end
+        end
+      end
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'War'" do
+        it "Assigns the next turn to the current player" do
+        #game.guess('h')
+          for i in (0..3)
+            game.current_player = game.players[i]
+            game.current_player = game.assign_next_turn("War")
+            game.current_player.should == game.players[i]
+          end
+        end
+      end
       
       
       
@@ -273,7 +328,7 @@ module TuffCookie
     end
     context "The evaluation of the Mark(guess, current_card, flipped_card) is 'SWEPT'" do
       it "Uses the existing not-yet-flipped card as the 'flipped card'" do
-        game.decide_to_flip_another_card('swept')
+        game.decide_to_flip_another_card('Swept')
         game.flipped_card.should == 9
       end
     end
@@ -311,6 +366,26 @@ module TuffCookie
         game.flipped_card.should == 3
       end
     end
+    
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Roshambo'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("Roshambo")
+        game.flipped_card.should == 3
+      end
+    end
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Stack Swap'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("Stack Swap")
+        game.flipped_card.should == 3
+      end
+    end
+    context "The evaluation of the Mark(guess, current_card, flipped_card) is 'War'" do
+      it "Uses the previous 'numbered' card as the 'flipped_card'" do
+        game.decide_to_flip_another_card("War")
+        game.flipped_card.should == 3
+      end
+    end
+    
     
     
     
