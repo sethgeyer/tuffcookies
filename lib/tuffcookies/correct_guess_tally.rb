@@ -2,7 +2,7 @@
 ######## Keeps Tally of the number of correct guesses.  
 module TuffCookie
  class CorrectGuessTally 
-     attr_accessor :new_correct_guess_tally, :pot
+     attr_accessor :pot, :new_correct_guess_tally 
      def initialize(start_card)
       @pot = [start_card]
      end   

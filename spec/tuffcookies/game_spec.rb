@@ -37,19 +37,31 @@ module TuffCookie
       end
     end
 
-#### Need to test the items in bin folder.  This doesn't currently handle it. 
-#     describe "#NO_GUESS SCENARIO" do
-#       context "Current card is not guessable because it equals 'reverse'" do
-#         it "assisgns 'guess' equal to 'no_guess'" do
-#           game.start(7, "Seth")
-#           game.current_card = "reverse"
-#           game.flipped_card = 8
-#           game.guess('no_guess')
-#           game.evaluation.should == "no_guess"
-#         end
-#       end
-#     end    
-    
+
+    describe "#PLAYER_CHOICES" do
+      before(:each) do 
+        game.start(7, "Seth") 
+        game.flipped_card = 8
+      end
+      
+      context "There are < 3 Correct Consecutive Guesses" do
+        it "returns 'Higher(h) or Lower(l)?'" do
+          #game.guess('h', 2)
+          game.current_correct_guess_tally = 2
+          game.player_choices.should == "Higher(h) or Lower(l)?" 
+        end
+      end
+      context "There are 3 or more Correct Consecutive Guesses" do
+        it "returns 'Higher(h) or Lower(l) or Sweep(s)?'" do
+          #game.guess('h', 3)
+          game.current_correct_guess_tally = 3
+          game.player_choices.should == "Higher(h) or Lower(l) or Sweep(s)?" 
+        end
+      end
+      
+    end
+
+
     
     describe "#GUESS" do
       before(:each) do 
