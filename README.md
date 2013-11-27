@@ -2,7 +2,7 @@ I am developing an electronic version of a card game created by me and my 9 year
 
 TUFF COOKES RULES
 
-The game is played with two standard decks of playing cards and 36 action cards (although the actual number of cards to use is evolving).
+The game is played with a standard deck of playing cards and 16 action cards (although the actual number of cards to use is evolving).
 
 At its core, Tuff Cookies is a simple guessing game of high/low. The dealer flips a card. The player guesses whether the next card will be higher or lower. Guess right, win cards. Guess wrong, lose cards and lose your turn. Built into the game (via the Action Cards) are several other opportunities to win/lose cards and gain a turn/lose a turn (as described on the Action Card). The game is over once the dealer has dealt all of the cards. The player with the biggest stack of cards at the end of the game wins.
 

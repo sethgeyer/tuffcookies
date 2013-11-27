@@ -15,11 +15,7 @@ module TuffCookie
     describe "#START the Game" do
       before(:each) { game.start(7, "Seth") }
       it "Creates deck for the game" do
-        game.total_cards.should == 62
-        action_cards = ["Give 2", "Reverse", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War", "Skip"]
-        action_cards.each do |card|
-          game.numbered_cards.count(card).should == 4
-        end
+        game.total_cards.should == 68
       end
                 
      
@@ -333,6 +329,49 @@ module TuffCookie
           game.tally.pot.should == [7]
         end
       end
+    
+      context "The evaluation of the Mark(guess, current_card, flipped_card) is 'Give 2'" do
+        before(:each) do
+          game.current_player = game.players[3]
+        end
+        context "The current_player has at least 2 cards to give" do
+          before(:each) do
+            game.current_player.won_cards = [4, 5, 6, 7, 8, 9]
+          end  
+          
+          context "There is only ONE player with the fewest number of cards" do
+            before(:each) do
+              game.players[0].won_cards = [4, 5, 6]
+              game.players[1].won_cards = [3, 2]
+              game.players[2].won_cards = [4, 6, 7, 8]
+              game.update_score("Give 2")
+            end
+            it "takes 2 cards from the current players pile of won cards" do
+              game.current_player.won_cards.size.should == 4
+            end
+            it "gives the 2 cards to the ONE player with the fewest won cards" do
+              game.players[1].won_cards.size.should == 4
+            end
+          end
+#           context "There are MULTIPLE players with the fewest number of cards" do
+#             before(:each) do
+#               game.players[0].won_cards = [4]
+#               game.players[1].won_cards = [3]
+#               game.players[2].won_cards = [9]
+#               game.update_score("Give 2")
+#             end
+#             it "gives the 2 cards to one of the players based on random selection" do
+#               game.receiver = game.players[1]
+#               game.players[1].won_cards.size.should == 3
+#             end
+#           end
+           context "The current player is the one with the fewest number of cards" do
+          end
+        end
+        
+        context "The current_player does NOT HAVE 2 cards to give" do
+        end  
+      end        
     end
     
   describe "#DECIDE TO FLIP ANOTHER CARD" do

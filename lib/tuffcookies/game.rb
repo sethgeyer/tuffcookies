@@ -2,7 +2,7 @@
 
 module TuffCookie
   class Game
-    attr_accessor :total_cards, :array_of_players, :players, :current_card, :tally, :mark, :flipped_card, :evaluation, :current_correct_guess_tally, :current_player, :numbered_cards
+    attr_accessor :total_cards, :array_of_players, :players, :current_card, :tally, :mark, :flipped_card, :evaluation, :current_correct_guess_tally, :current_player, :numbered_cards, :receiver
     def initialize(output)
       create_deck
       @output = output
@@ -17,18 +17,18 @@ module TuffCookie
       @current_player = @players[0]
       @output.puts "#{@current_player.name.upcase}'s Turn: The Card in Play is a #{@current_card}"
       
-      @output.puts "NEXT CARDS ARE: #{@numbered_cards[0..10]}"
+      #@output.puts "NEXT CARDS ARE: #{@numbered_cards[0..10]}"
       @output.puts "Higher(h) or Lower(l)?"
     end
     
     def create_deck
       numbered_cards = []
-      (1..15).each do |card| 
-        numbered_cards.push(card, card) # 4 for copies of card to the deck.
+      (1..13).each do |card| 
+        numbered_cards.push(card, card, card, card) # 4 for copies of card to the deck.
       end
       action_cards = ["Reverse", "Give 2", "Give Me 2", "Suck It Nerds", "Roshambo", "Stack Swap", "War", "Skip"]
       action_cards.each do |card|
-        for i in (0..3)
+        for i in (1..2)
           numbered_cards.push(card)
         end
       end
@@ -69,7 +69,7 @@ module TuffCookie
      
       @output.puts "\n#{@evaluation}. Consecutive Correct Guesses: #{@tally.new_correct_guess_tally}  POT: #{tally.pot}\n\n" #Need Test
       @output.puts "#{@current_player.name.upcase}'S TURN..........The Card in Play is a #{@current_card}"
-      @output.puts "Next Cards Are: #{@numbered_cards[0..10]}"
+      #@output.puts "Next Cards Are: #{@numbered_cards[0..10]}"
       #You need to add a test for the score output below.
       @output.puts "Current_Scores:  \n#{@players[0].name} = #{@players[0].won_cards.size} #{@players[0].won_cards} \n#{@players[1].name} = #{@players[1].won_cards.size} #{@players[1].won_cards} \n#{@players[2].name} = #{@players[2].won_cards.size} #{@players[2].won_cards}  \n#{@players[3].name} = #{@players[3].won_cards.size} #{@players[3].won_cards} "
       #choices = player_choices
@@ -100,8 +100,27 @@ module TuffCookie
       elsif evaluation == "Wrong"
         @players[previous_player].won_cards += @tally.pot
         @tally.pot = [@numbered_cards[0]]
+      elsif evaluation == "Give 2"  
+        receiver = receiver_of_cards
+        receiver.won_cards << @current_player.won_cards.delete_at(rand(0..@current_player.won_cards.size-1))
+        receiver.won_cards << @current_player.won_cards.delete_at(rand(0..@current_player.won_cards.size-1))
       else
         # do nothing  
+      end
+    end
+    
+    def receiver_of_cards
+      @recipients  = @players - [@current_player] 
+      if @recipients[0].won_cards.size == @recipients[1].won_cards.size || @recipients[0].won_cards.size == @recipients[2].won_cards.size || @recipients[1].won_cards.size == @recipients[2].won_cards.size
+        @recipients[rand(0..2)]
+      elsif @recipients[0].won_cards.size < @recipients[1].won_cards.size
+        if @recipients[0].won_cards.size < @recipients[2].won_cards.size
+          @recipients[0]
+        else
+          @recipients[2]
+        end
+      else
+        @recipients[1]
       end
     end
 
